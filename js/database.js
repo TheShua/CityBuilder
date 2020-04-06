@@ -3,7 +3,7 @@ export const allBuildings = [
 	{
 		name: "Woodcutter camp",
 		level: 1,
-		maxLevel: 25,
+		maxLevel: 10,
 		image: "",
 		job: "Woodcutter",
         description: "Your villagers pick some axes and go chop chop some trees, bringing you back <strong>wood</strong> for your next projects. ",
@@ -12,12 +12,16 @@ export const allBuildings = [
         prodPerPerson: [0, 1, 2, 3, 4, 5, 7, 9, 11, 13, 15, 18, 21, 24,
             27, 30, 34, 38, 42, 46, 50, 55, 60, 65, 70, 80],
         toShow: ["maxVillagers", "prodPerPerson"],
-        resourceGain: ["wood"]
+        resourceGain: ["wood"],
+        price: [{ resource: "wood", base: 60, ratio: 1.5, fromLv: 0 },
+                { resource: "stone", base: 50, ratio: 1.3, fromLv: 3 },]
+        //     [[], [], [{ resource: "wood", nb: 100 }], [{ resource: "wood", nb: 150 }], [{ resource: "wood", nb: 200 }, { resource: "stone", nb: 50 }],
+        // [{ resource: "wood", nb: 275}, {resource: "stone", nb: 100}], [{resource: "wood", nb: 350}, {resource: "stone", nb: 150}]]
 	},
 	{
 		name: "Hunter camp",
 		level: 1,
-		maxLevel: 25,
+		maxLevel: 10,
 		image: "",
 		job: "Hunter",
         description: "Let your villagers hunt in the forest nearby to bring back <strong>raw meat</strong> and <strong>hide</strong> from the local wildlife.",
@@ -26,12 +30,14 @@ export const allBuildings = [
         prodPerPerson: [0, 1, 2, 3, 4, 5, 7, 9, 11, 13, 15, 18, 21, 24,
             27, 30, 34, 38, 42, 46, 50, 55, 60, 65, 70, 80],
         toShow: ["maxVillagers", "prodPerPerson"],
-        resourceGain: ["meat", "hide"]
+        resourceGain: ["meat", "hide"],
+        price: [{ resource: "wood", base: 60, ratio: 1.5, fromLv: 0 },
+        { resource: "stone", base: 50, ratio: 1.3, fromLv: 3 },]
     },
     {
         name: "Farm",
         level: 0,
-        maxLevel: 25,
+        maxLevel: 10,
         image: "",
         job: "Farmer",
         description: "",
@@ -40,12 +46,14 @@ export const allBuildings = [
         prodPerPerson: [0, 1, 2, 3, 4, 5, 7, 9, 11, 13, 15, 18, 21, 24,
             27, 30, 34, 38, 42, 46, 50, 55, 60, 65, 70, 80],
         toShow: ["maxVillagers", "prodPerPerson"],
-        price: [{wood: 250}]
+        resourceGain: ["wheat"],
+        price: [{ resource: "wood", base: 80, ratio: 1.75, fromLv: 0 },
+        { resource: "stone", base: 40, ratio: 1.3, fromLv: 5 },]
     },
     {
         name: "Sheep farm",
         level: 0,
-        maxLevel: 25,
+        maxLevel: 10,
         image: "",
         job: "Sheep Farmer",
         description: "",
@@ -54,12 +62,14 @@ export const allBuildings = [
         prodPerPerson: [0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5,
             5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10],
         toShow: ["maxVillagers", "prodPerPerson"],
-        price: [{wood: 250}]
+        resourceGain: ["wool"],
+        price: [{ resource: "wood", base: 80, ratio: 1.75, fromLv: 0 },
+        { resource: "stone", base: 40, ratio: 1.3, fromLv: 5 },]
     },
     {
         name: "Stone quarry",
         level: 0,
-        maxLevel: 25,
+        maxLevel: 10,
         image: "",
         job: "Stone miner",
         description: "",
@@ -68,12 +78,14 @@ export const allBuildings = [
         prodPerPerson: [0, 1, 2, 3, 4, 5, 7, 9, 11, 13, 15, 18, 21, 24,
             27, 30, 34, 38, 42, 46, 50, 55, 60, 65, 70, 80],
         toShow: ["maxVillagers", "prodPerPerson"],
-        price: [{ wood: 250 }]
+        resourceGain: ["stone"],
+        price: [{ resource: "wood", base: 50, ratio: 1.3, fromLv: 0 },
+        { resource: "stone", base: 20, ratio: 1.5, fromLv: 2 },]
     },
     {
         name: "Mine",
         level: 0,
-        maxLevel: 25,
+        maxLevel: 10,
         image: "",
         job: "Ore miner",
         description: "",
@@ -82,6 +94,27 @@ export const allBuildings = [
         prodPerPerson: [0, 1, 2, 3, 4, 5, 7, 9, 11, 13, 15, 18, 21, 24,
             27, 30, 34, 38, 42, 46, 50, 55, 60, 65, 70, 80],
         toShow: ["maxVillagers", "prodPerPerson"],
-        price: [{ wood: 250 }]
+        resourceGain: ["ore"],
+        price: [{ resource: "wood", base: 50, ratio: 1.3, fromLv: 0 },
+        { resource: "stone", base: 20, ratio: 1.5, fromLv: 2 },]
     },
+];
+
+// !!!!!!!!!!!!! RESOURCES !!!!!!!!!
+
+export const allResources = [
+	{ name: "wood", type: "raw" },
+	{ name: "meat", type: "raw" },
+	{ name: "wheat", type: "raw" },
+	{ name: "hide", type: "raw" },
+	{ name: "wool", type: "raw" },
+	{ name: "stone", type: "raw" },
+	{ name: "ore", type: "raw" },
+	{ name: "gold", type: "product" },
+	{ name: "plank", type: "product" },
+	{ name: "food", type: "product" },
+	{ name: "flour", type: "product" },
+	{ name: "bread", type: "product" },
+	{ name: "stonebrick", type: "product" },
+	{ name: "gem", type: "product" },
 ];

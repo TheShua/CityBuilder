@@ -1,3 +1,5 @@
+import { city } from "./main.js";
+
 export class Helper {
 	createRowVillager(job, number) {
 		let div = document.createElement("div");
@@ -8,7 +10,7 @@ export class Helper {
 		return div;
 	}
 
-	createBuilding(building) {
+	createBuildingBlock(building) {
 		let bloc = document.createElement("article");
 		bloc.innerHTML = `<h3>${building.name}</h3>
         <span class="level">${building.level}</span>`;
@@ -44,13 +46,38 @@ export class Helper {
 		let buttons = document.createElement("div");
 		buttons.className = "buttons";
 		if (building.level < 1) {
-			buttons.innerHTML += `<button class="up">Build</button>`;
+			buttons.appendChild(
+				this.createButton("up", "Build", function () {
+					city.createBuilding(building.name);
+				})
+			);
 		} else if (building.level === building.levelMax) {
-			buttons.innerHTML += `<button class="down">Downgrade</button>`;
+			buttons.appendChild(
+				this.createButton("down", "Downgrade", function () {
+					city.downgradeBuilding(building.name);
+				})
+			);
 		} else {
-			buttons.innerHTML += `<button class="up">Upgrade</button><button class="down">Downgrade</button>`;
+			buttons.appendChild(
+				this.createButton("up", "Upgrade", function () {
+					city.upgradeBuilding(building.name);
+				})
+			);
+			buttons.appendChild(
+				this.createButton("down", "Downgrade", function () {
+					city.downgradeBuilding(building.name);
+				})
+			);
 		}
 		bloc.appendChild(buttons);
 		return bloc;
+	}
+
+	createButton(className, text, onclick) {
+		let button = document.createElement("button");
+		button.className = className;
+		button.textContent = text;
+		button.onclick = (e) => onclick();
+		return button;
 	}
 }

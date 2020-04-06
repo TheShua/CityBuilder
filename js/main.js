@@ -12,10 +12,10 @@ let debug = {
 // END DEBUG
 
 // Variable assignation of global objects
-const helper = new Helper();
+export const helper = new Helper();
 export const villagers = new Villagers();
-const city = new City();
-const gameManager = new GameManager(debug.status, 500, city, villagers);
+export const city = new City();
+export const gameManager = new GameManager(debug.status, 500, city, villagers);
 
 const pages = document.querySelectorAll("section");
 
@@ -27,7 +27,7 @@ window.onload = function () {
 	// 		city.setName(inputCityName.value);
 	// 		inputCityName.parentNode.parentNode.remove();
 	// 	});
-	renderPage();
+	gameManager.renderPage();
 
 	document.querySelector(`#debug [data-action="pause"]`).onclick = (e) => {
 		e.target.textContent = gameManager.toggleGame();
@@ -53,48 +53,9 @@ function switchPage(page) {
 }
 
 function showPageVillagers() {
-	renderPage("villagers");
+	gameManager.renderPage("villagers");
 }
 
 function showPageBuildings() {
-	renderPage("buildings");
-}
-
-function renderPage(page = "villagers") {
-	let content;
-	switch (page) {
-		case "villagers":
-			content = document.getElementById("page-villagers");
-			let list = content.querySelector(".list");
-			list.innerHTML = "";
-			content.querySelector(
-				".number span.nb"
-			).innerHTML = villagers.getAllVillagers("unaffected").length;
-			city.production.forEach((e) => {
-				let div = helper.createRowVillager(
-					e.job,
-					villagers.getAllVillagers(e.job).length
-				);
-				div.querySelector(".plus").onclick = (event) => {
-					villagers.affectJob(e.job);
-					renderPage();
-					gameManager.renderRessources();
-				};
-				div.querySelector(".minus").onclick = (event) => {
-					villagers.unAffectJob(e.job);
-					renderPage();
-					gameManager.renderRessources();
-				};
-				list.appendChild(div);
-			});
-			break;
-
-		case "buildings":
-			content = document.querySelector("#page-buildings .content");
-			content.innerHTML = "";
-			city.production.forEach((e) => {
-				content.appendChild(helper.createBuilding(e));
-			});
-			break;
-	}
+	gameManager.renderPage("buildings");
 }

@@ -1,3 +1,5 @@
+import { helper } from "./main.js";
+
 export class GameManager {
 	constructor(status = "play", dayDuration, city, villagers) {
 		this.dayDuration = dayDuration;
@@ -96,5 +98,45 @@ export class GameManager {
 			}</span>`;
 			list.appendChild(li);
 		});
+	}
+
+	renderPage(page = "villagers") {
+		let content;
+		switch (page) {
+			case "villagers":
+				content = document.getElementById("page-villagers");
+				let list = content.querySelector(".list");
+				list.innerHTML = "";
+				content.querySelector(
+					".number span.nb"
+				).innerHTML = this.villagers.getAllVillagers("unaffected").length;
+				this.city.production.forEach((e) => {
+					let div = helper.createRowVillager(
+						e.job,
+						this.villagers.getAllVillagers(e.job).length
+					);
+					div.querySelector(".plus").onclick = (event) => {
+						this.villagers.affectJob(e.job);
+						this.renderPage();
+						this.renderRessources();
+					};
+					div.querySelector(".minus").onclick = (event) => {
+						this.villagers.unAffectJob(e.job);
+						this.renderPage();
+						this.renderRessources();
+					};
+					list.appendChild(div);
+				});
+				break;
+
+			case "buildings":
+				content = document.querySelector("#page-buildings .content");
+				content.innerHTML = "";
+				this.city.production.forEach((e) => {
+					content.appendChild(helper.createBuildingBlock(e));
+				});
+				// content.appendChild(helper.createButton());
+				break;
+		}
 	}
 }
