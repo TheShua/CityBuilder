@@ -15,7 +15,9 @@ export class Helper {
 		let bloc = document.createElement("article");
 		bloc.innerHTML = `<h3>${building.name}</h3>
         <span class="level">${building.level}</span>`;
-		// <img src="${building.image}" alt="${building.name} Infos" />
+		if (building.image != "") {
+			bloc.innerHTML += `<img src="${building.image}" alt="${building.name} Infos" />`;
+		}
 		bloc.innerHTML += `<p>${building.description}</p>
         <table>
         <thead><tr>
@@ -116,7 +118,9 @@ export class Helper {
 	createNewBuildingBlock(building) {
 		let bloc = document.createElement("article");
 		bloc.innerHTML = `<h3>${building.name}</h3>`;
-		// <img src="${building.image}" alt="${building.name} Infos" />
+		if (building.image != "") {
+			bloc.innerHTML += `<img src="${building.image}" alt="${building.name} Infos" />`;
+		}
 		bloc.innerHTML += `<p>${building.description}</p>
         <table>
         <thead><tr>
@@ -160,5 +164,22 @@ export class Helper {
 		buttons.appendChild(test1);
 		bloc.appendChild(buttons);
 		return bloc;
+	}
+
+	showResourcesLists() {
+		let clearAll = document.querySelectorAll(
+			`li[data-type=resources]:not([data-info="villagers"]) ul`
+		);
+		clearAll.forEach((e) => (e.innerHTML = ""));
+
+		city.resources.forEach((resource) => {
+			let selector = `li[data-type=resources][data-info="${resource.categorie}"] ul`;
+			let list = document.querySelector(selector);
+			let element = document.createElement("li");
+			element.setAttribute("data-resource", resource.name);
+			element.innerHTML = `<img src="./../assets/img/resources/${resource.name}.png"
+            alt="${resource.name} Icon"> ${resource.name} : <span>${resource.nb}</span>`;
+			list.appendChild(element);
+		});
 	}
 }

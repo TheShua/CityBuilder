@@ -13,12 +13,7 @@ export class GameManager {
 		this.villagers.city = this.city;
 		this.renderRessources();
 
-		if (status === "play") this.initGame(this.dayDuration);
-	}
-
-	initGame() {
-		this.dayCycle();
-		this.startGame();
+		if (status === "play") this.startGame(this.dayDuration);
 	}
 
 	startGame() {
@@ -76,14 +71,8 @@ export class GameManager {
 	}
 
 	renderRessources() {
-		this.city.rawMaterial.forEach((e) => {
-			document.querySelector(`li[data-resource="${e.name}"] span`).textContent =
-				e.nb;
-		});
-		this.city.product.forEach((e) => {
-			document.querySelector(`li[data-resource="${e.name}"] span`).textContent =
-				e.nb;
-		});
+		// console.log(city.resources[1].nb);
+		helper.showResourcesLists();
 		let list = document.querySelector(`li[data-info="villagers"] ul`);
 		list.innerHTML = "";
 		let li = document.createElement("li");
@@ -99,6 +88,7 @@ export class GameManager {
 			}</span>`;
 			list.appendChild(li);
 		});
+		// console.log(city.resources[1].nb);
 	}
 
 	renderPage(page = "villagers") {
@@ -134,7 +124,8 @@ export class GameManager {
 				content = document.querySelector("#page-buildings .content");
 				content.innerHTML = "";
 				this.city.production.forEach((e) => {
-					content.appendChild(helper.createBuildingBlock(e));
+					if (e.type === "recolt")
+						content.appendChild(helper.createBuildingBlock(e));
 				});
 				content.appendChild(
 					helper.createButton("up", "Build", this.showBuildingMenu)

@@ -1,5 +1,5 @@
 import { settings, gameManager, villagers } from "./main.js";
-import { allBuildings } from "./database.js";
+import { allBuildings, allResources } from "./database.js";
 
 export class City {
 	constructor() {
@@ -7,31 +7,39 @@ export class City {
 		this.name = "My City";
 
 		// Raw Materials
-		this.rawMaterial = [
-			{ name: "wood", nb: 0 },
-			{ name: "meat", nb: 0 },
-			{ name: "wheat", nb: 0 },
-			{ name: "hide", nb: 0 },
-			{ name: "wool", nb: 0 },
-			{ name: "stone", nb: 0 },
-			{ name: "ore", nb: 0 },
-		];
-		// Final Products
-		this.product = [
-			{ name: "gold", nb: 0 },
-			{ name: "plank", nb: 0 },
-			{ name: "food", nb: 0 },
-			{ name: "flour", nb: 0 },
-			{ name: "bread", nb: 0 },
-			{ name: "stonebrick", nb: 0 },
-			{ name: "gem", nb: 0 },
-		];
+		this.resources = [];
+		// // Final Products
+		// this.product = [
+		// 	{ name: "gold", nb: 0 },
+		// 	{ name: "plank", nb: 0 },
+		// 	{ name: "food", nb: 0 },
+		// 	{ name: "flour", nb: 0 },
+		// 	{ name: "bread", nb: 0 },
+		// 	{ name: "stonebrick", nb: 0 },
+		// 	{ name: "gem", nb: 0 },
+		// ];
 
 		this.production = [];
+		this.initResources();
 		this.attractionRate = 0;
-		this.dailyResourcesNeeded = ["food"];
+		this.dailyResourcesNeeded = ["nourishment"];
 
 		this.getStarterPack();
+	}
+
+	initResources() {
+		let baseResources = allResources.filter((e) => e.type.includes("base"));
+		baseResources.forEach((e) => this.resources.push(e));
+	}
+
+	createResource(building) {
+		let resources = building.resourceGain;
+		resources.forEach((e) => {
+			if (!this.resources.find((x) => x.name === e)) {
+				let resource = allResources.find((x) => x.name === e);
+				this.resources.push(resource);
+			}
+		});
 	}
 
 	getName() {
@@ -40,13 +48,13 @@ export class City {
 
 	setName(name) {
 		this.name = name;
-		console.log(`The name of the city just changed for : ${this.name}`);
 	}
 
 	getStarterPack() {
 		this.addResource([
-			{ name: "wood", nb: 100, raw: 1 },
-			{ name: "meat", nb: 50, raw: 1 },
+			{ name: "wood", nb: 100 },
+			{ name: "meat", nb: 50 },
+			{ name: "food", nb: 3 },
 		]);
 		this.addVillager(5);
 		allBuildings.forEach((e) => {
@@ -56,13 +64,13 @@ export class City {
 
 	addResource(array) {
 		array.forEach((e) => {
-			this.rawMaterial.find((m) => m.name === e.name).nb += e.nb;
+			this.resources.find((m) => m.name === e.name).nb += e.nb;
 		});
 	}
 
 	loseResource(array) {
 		array.forEach((x) => {
-			let rsc = this.rawMaterial.find((y) => x.name === y.name);
+			let rsc = this.resources.find((y) => x.name === y.name);
 			rsc.nb -= x.nb;
 		});
 	}
@@ -74,11 +82,11 @@ export class City {
 	}
 
 	itsANewDay() {
-		this.profitForTheDay();
-		this.costForTheDay();
+		this.gainProfitForTheDay();
+		this.payCostForTheDay();
 	}
 
-	profitForTheDay() {
+	gainProfitForTheDay() {
 		this.production.forEach((e) => {
 			e.resourceGain.forEach((r) => {
 				let amount =
@@ -86,24 +94,43 @@ export class City {
 				this.addResource([{ name: r, nb: amount, raw: 1 }]);
 			});
 		});
+		// console.log(this.resources);
 	}
 
-	costForTheDay() {
-		this.dailyResourcesNeeded.forEach((e) => {
-			if (
-				e === "food" &&
-				this.product.find((x) => x.name === "food") <
-					villagers.getAllVillagers()
-			) {
-				console.log("ouah les pauvres");
-			} else {
-				console.log("bon ap'!");
-			}
+	payCostForTheDay() {
+		if (gameManager.currentDay === 1) return;
+		let allVillagers = villagers.getAllVillagers().length;
+		let total = this.foodForTheDay();
+		let toSustain = allVillagers;
+		if (total > allVillagers) {
+			let listResources = this.resources.filter((x) =>
+				x.hasOwnProperty("nutritValue")
+			);
+			listResources.sort((a, b) => {
+				return b.nutritValue - a.nutritValue;
+			});
+
+			listResources.forEach((r) => {
+				let nbIteration = Math.floor(toSustain / r.nutritValue);
+				if (nbIteration <= r.nb) {
+					for (let i = 0; i < nbIteration; i++) {
+						toSustain -= r.nutritValue;
+						r.nb--;
+						if (toSustain === 0) break;
+					}
+				}
+			});
+		}
+	}
+
+	foodForTheDay() {
+		let listResources = this.resources.filter((x) => {
+			return x.type.some((y) => this.dailyResourcesNeeded.indexOf(y) >= 0);
 		});
-	}
-
-	gotEnoughFood() {
-		let allVillagers = villagers.getAllVillagers();
+		let total = listResources.reduce((acc, val) => {
+			return acc + val.nb * val.nutritValue;
+		}, 0);
+		return total;
 	}
 
 	upgradeBuilding(building) {
@@ -168,7 +195,6 @@ export class City {
 				else number = Math.floor(x.base * factor);
 				price.push({ name: x.resource, nb: number });
 			} else {
-				console.log("meh");
 				price.push({ name: x.resource, nb: x.base * factor });
 			}
 		});
@@ -183,7 +209,7 @@ export class City {
 		let totalPrice = this.calculatePrice(build);
 		let r = [];
 		totalPrice.forEach((x) => {
-			let rsc = this.rawMaterial.find((y) => x.name === y.name);
+			let rsc = this.resources.find((y) => x.name === y.name);
 			r.push(rsc.nb > x.nb);
 		});
 		return r.includes(false) ? false : true;
@@ -196,6 +222,7 @@ export class City {
 			this.loseResource(this.calculatePrice(build));
 			this.production.push(build);
 			this.production.find((x) => x.name === building).level = 1;
+			this.createResource(build);
 			gameManager.renderPage("buildings");
 			gameManager.renderRessources();
 			return true;
