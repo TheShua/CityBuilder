@@ -12,6 +12,9 @@ let debug = {
 // END DEBUG
 
 // Variable assignation of global objects
+export const settings = {
+	ratioRefound: 0.7, // rate of selling for buildings
+};
 export const helper = new Helper();
 export const villagers = new Villagers();
 export const city = new City();
@@ -47,15 +50,11 @@ function switchPage(page) {
 		e.style.display = "none";
 	});
 
-	if (page === "villagers") showPageVillagers();
-	else if (page === "buildings") showPageBuildings();
+	if (page === "villagers") gameManager.renderPage("villagers");
+	else if (page === "buildings") gameManager.renderPage("buildings");
 	section.style.display = "block";
 }
 
-function showPageVillagers() {
-	gameManager.renderPage("villagers");
-}
-
-function showPageBuildings() {
-	gameManager.renderPage("buildings");
+export function closeFocus() {
+	document.querySelector(".black-screen").remove();
 }

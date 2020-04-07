@@ -1,4 +1,5 @@
-import { helper } from "./main.js";
+import { helper, city, closeFocus } from "./main.js";
+import { allBuildings } from "./database.js";
 
 export class GameManager {
 	constructor(status = "play", dayDuration, city, villagers) {
@@ -135,8 +136,29 @@ export class GameManager {
 				this.city.production.forEach((e) => {
 					content.appendChild(helper.createBuildingBlock(e));
 				});
-				// content.appendChild(helper.createButton());
+				content.appendChild(
+					helper.createButton("up", "Build", this.showBuildingMenu)
+				);
 				break;
 		}
+	}
+
+	showBuildingMenu() {
+		let body = document.querySelector("body");
+		let focus = helper.focusFrame();
+		let editFocus = focus.querySelector(".content");
+
+		editFocus.appendChild(
+			helper.createButton("down mini-close", "X", function () {
+				closeFocus();
+			})
+		);
+		let buildingsToBuild = allBuildings.filter(
+			(e) => !city.production.find((x) => x.name === e.name)
+		);
+		buildingsToBuild.forEach((e) => {
+			editFocus.appendChild(helper.createNewBuildingBlock(e));
+		});
+		body.prepend(focus);
 	}
 }
