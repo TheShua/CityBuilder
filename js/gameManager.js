@@ -1,4 +1,4 @@
-import { helper, city, closeFocus } from "./main.js";
+import { helper, city, closeFocus, gameManager, switchPage } from "./main.js";
 import { allBuildings } from "./database.js";
 
 export class GameManager {
@@ -71,7 +71,6 @@ export class GameManager {
 	}
 
 	renderRessources() {
-		// console.log(city.resources[1].nb);
 		helper.showResourcesLists();
 		let list = document.querySelector(`li[data-info="villagers"] ul`);
 		list.innerHTML = "";
@@ -80,7 +79,7 @@ export class GameManager {
 			this.villagers.getAllVillagers("unaffected").length
 		}</span>`;
 		list.appendChild(li);
-		this.city.production.forEach((e) => {
+		this.city.structures.forEach((e) => {
 			li = document.createElement("li");
 			li.setAttribute("data-resource", e.job);
 			li.innerHTML = `${e.job} <span>${
@@ -88,10 +87,10 @@ export class GameManager {
 			}</span>`;
 			list.appendChild(li);
 		});
-		// console.log(city.resources[1].nb);
 	}
 
 	renderPage(page = "villagers") {
+		this.renderAside();
 		let content;
 		switch (page) {
 			case "villagers":
@@ -101,7 +100,7 @@ export class GameManager {
 				content.querySelector(
 					".number span.nb"
 				).innerHTML = this.villagers.getAllVillagers("unaffected").length;
-				this.city.production.forEach((e) => {
+				this.city.structures.forEach((e) => {
 					let div = helper.createRowVillager(
 						e.job,
 						this.villagers.getAllVillagers(e.job).length
@@ -123,14 +122,37 @@ export class GameManager {
 			case "buildings":
 				content = document.querySelector("#page-buildings .content");
 				content.innerHTML = "";
-				this.city.production.forEach((e) => {
+				this.city.structures.forEach((e) => {
 					if (e.type === "recolt")
+						content.appendChild(helper.createBuildingBlock(e));
+				});
+				this.city.structures.forEach((e) => {
+					if (e.type === "misc")
 						content.appendChild(helper.createBuildingBlock(e));
 				});
 				content.appendChild(
 					helper.createButton("up", "Build", this.showBuildingMenu)
 				);
 				break;
+
+			case "inn":
+				console.log("HAHAHA");
+				break;
+		}
+	}
+
+	renderAside() {
+		let aside = document.querySelector("aside");
+		aside.innerHTML = "";
+		let title = document.createElement("h2");
+		title.textContent = "Projection";
+		aside.appendChild(title);
+		if (this.city.structures.some((x) => x.name === "Inn")) {
+			aside.appendChild(
+				helper.createButton("up", "Open bar", function () {
+					switchPage("inn");
+				})
+			);
 		}
 	}
 
@@ -145,7 +167,7 @@ export class GameManager {
 			})
 		);
 		let buildingsToBuild = allBuildings.filter(
-			(e) => !city.production.find((x) => x.name === e.name)
+			(e) => !city.structures.find((x) => x.name === e.name)
 		);
 		buildingsToBuild.forEach((e) => {
 			editFocus.appendChild(helper.createNewBuildingBlock(e));

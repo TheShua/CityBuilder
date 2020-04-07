@@ -111,6 +111,7 @@ export const allBuildings = [
         type: "misc",
         description: "",
         // maxAdventurers: [0, ]
+        toShow: [],
         price: [{ resource: "wood", base: 50, ratio: 1.3, fromLv: 0 },
         { resource: "stone", base: 20, ratio: 1.5, fromLv: 2 },]
     }
@@ -145,4 +146,11 @@ export const allResources = [
 	{ name: "bread", nb: 0, categorie: "product", type: [] },
 	{ name: "stonebrick", nb: 0, categorie: "product", type: [] },
 	{ name: "gem", nb: 0, categorie: "product", type: [] },
+];
+
+export const allNarratives = [
+	{
+		title: "Titre",
+		description: "Blablabliblablu",
+	},
 ];

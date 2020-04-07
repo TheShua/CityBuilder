@@ -6,20 +6,10 @@ export class City {
 		console.log("City loaded");
 		this.name = "My City";
 
-		// Raw Materials
+		// Materials
 		this.resources = [];
-		// // Final Products
-		// this.product = [
-		// 	{ name: "gold", nb: 0 },
-		// 	{ name: "plank", nb: 0 },
-		// 	{ name: "food", nb: 0 },
-		// 	{ name: "flour", nb: 0 },
-		// 	{ name: "bread", nb: 0 },
-		// 	{ name: "stonebrick", nb: 0 },
-		// 	{ name: "gem", nb: 0 },
-		// ];
+		this.structures = [];
 
-		this.production = [];
 		this.initResources();
 		this.attractionRate = 0;
 		this.dailyResourcesNeeded = ["nourishment"];
@@ -58,7 +48,7 @@ export class City {
 		]);
 		this.addVillager(5);
 		allBuildings.forEach((e) => {
-			if (e.level > 0) this.production.push(e);
+			if (e.level > 0) this.structures.push(e);
 		});
 	}
 
@@ -87,14 +77,14 @@ export class City {
 	}
 
 	gainProfitForTheDay() {
-		this.production.forEach((e) => {
+		this.structures.forEach((e) => {
+			if (!e.hasOwnProperty("resourceGain")) return;
 			e.resourceGain.forEach((r) => {
 				let amount =
 					e.prodPerPerson[e.level] * villagers.getAllVillagers(e.job).length;
 				this.addResource([{ name: r, nb: amount, raw: 1 }]);
 			});
 		});
-		// console.log(this.resources);
 	}
 
 	payCostForTheDay() {
@@ -134,7 +124,7 @@ export class City {
 	}
 
 	upgradeBuilding(building) {
-		let build = this.production.find((x) => x.name === building);
+		let build = this.structures.find((x) => x.name === building);
 		if (build.level >= build.maxLevel) return;
 
 		if (!this.canBuy(building)) {
@@ -148,8 +138,8 @@ export class City {
 	}
 
 	downgradeBuilding(building) {
-		let build = this.production.find((b) => b.name === building);
-		let index = this.production.indexOf(build);
+		let build = this.structures.find((b) => b.name === building);
+		let index = this.structures.indexOf(build);
 
 		if (build.level === 0) return;
 		if (build.level > 0) {
@@ -157,7 +147,7 @@ export class City {
 			this.addResource(rsc);
 			build.level--;
 			if (build.level === 0) {
-				this.production.splice([index], 1);
+				this.structures.splice([index], 1);
 			}
 		}
 		gameManager.renderPage("buildings");
@@ -169,8 +159,8 @@ export class City {
 		building.price.forEach((x) => {
 			let buildingLevel = 0;
 			let trueRatio = 1;
-			if (this.production.includes(building)) {
-				buildingLevel = this.production.find((b) => b.name === building.name)
+			if (this.structures.includes(building)) {
+				buildingLevel = this.structures.find((b) => b.name === building.name)
 					.level;
 				trueRatio = x.ratio;
 			} else {
@@ -204,7 +194,7 @@ export class City {
 	canBuy(building, isNewBuilding) {
 		let build = "";
 		if (isNewBuilding) build = building;
-		else build = this.production.find((b) => b.name === building);
+		else build = this.structures.find((b) => b.name === building);
 
 		let totalPrice = this.calculatePrice(build);
 		let r = [];
@@ -217,12 +207,13 @@ export class City {
 
 	createBuilding(building) {
 		let build = allBuildings.find((b) => b.name === building);
-		if (this.production.includes(build)) return;
+
+		if (this.structures.includes(build)) return;
 		if (this.canBuy(build, true)) {
 			this.loseResource(this.calculatePrice(build));
-			this.production.push(build);
-			this.production.find((x) => x.name === building).level = 1;
-			this.createResource(build);
+			this.structures.push(build);
+			this.structures.find((x) => x.name === building).level = 1;
+			if (building.hasOwnProperty("resourceGain")) this.createResource(build);
 			gameManager.renderPage("buildings");
 			gameManager.renderRessources();
 			return true;

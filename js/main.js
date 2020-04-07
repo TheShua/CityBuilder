@@ -43,7 +43,7 @@ window.onload = function () {
 	});
 };
 
-function switchPage(page) {
+export function switchPage(page) {
 	let section = "";
 	pages.forEach((e) => {
 		if (e.getAttribute("id") === `page-${page}`) section = e;
@@ -52,6 +52,7 @@ function switchPage(page) {
 
 	if (page === "villagers") gameManager.renderPage("villagers");
 	else if (page === "buildings") gameManager.renderPage("buildings");
+	else if (page === "inn") gameManager.renderPage("inn");
 	section.style.display = "block";
 }
 

@@ -33,7 +33,7 @@ export class Villagers {
 
 		if (!this.getAllVillagers("unaffected").length) return;
 
-		let actualBuild = this.city.production.find((x) => x.job === job);
+		let actualBuild = this.city.structures.find((x) => x.job === job);
 		if (
 			this.getAllVillagers(job).length ===
 			actualBuild.maxVillagers[actualBuild.level]
