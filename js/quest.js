@@ -2,11 +2,11 @@ import { allNarratives } from "./database.js";
 
 export class Quest {
 	constructor() {
-		story = getNarrative();
+		this.story = this.getNarrative();
 	}
 
 	getNarrative() {
-		return allNarratives[getRandom(allNarratives.length)];
+		return allNarratives[this.getRandom(allNarratives.length)];
 	}
 
 	getRandom(max) {

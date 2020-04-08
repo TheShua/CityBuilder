@@ -182,4 +182,17 @@ export class Helper {
 			list.appendChild(element);
 		});
 	}
+
+	createQuestBoard(quest) {
+		let bloc = document.createElement("article");
+		bloc.innerHTML = `<h3>${quest.name}</h3>`;
+		// <span class="level">${building.level}</span>`;
+		// if (building.image != "") {
+		//     bloc.innerHTML += `<img src="${building.image}" alt="${building.name} Infos" />`;
+		// }
+		bloc.innerHTML += `<p>${quest.description}</p>`;
+
+		bloc.appendChild(buttons);
+		return bloc;
+	}
 }

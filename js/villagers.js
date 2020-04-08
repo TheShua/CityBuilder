@@ -3,7 +3,6 @@ import { allBuildings } from "./database.js";
 
 export class Villagers {
 	constructor() {
-		console.log("Villagers loaded");
 		this.allVillagers = [];
 		this.city = null;
 	}
@@ -12,6 +11,10 @@ export class Villagers {
 		const villager = new Villager();
 		this.allVillagers.push(villager);
 		console.log("A new villager join the town");
+	}
+
+	leaveTown() {
+		this.allVillagers.pop();
 	}
 
 	getAllVillagers(job = null) {

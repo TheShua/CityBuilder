@@ -1,20 +1,28 @@
-import { settings, gameManager, villagers } from "./main.js";
+import { settings, render, gameManager, villagers } from "./main.js";
 import { allBuildings, allResources } from "./database.js";
+import { Quest } from "./quest.js";
 
 export class City {
 	constructor() {
-		console.log("City loaded");
 		this.name = "My City";
 
-		// Materials
-		this.resources = [];
-		this.structures = [];
+		this.resources = []; // Materials
+		this.structures = []; // Buildings
 
 		this.initResources();
-		this.attractionRate = 0;
+		this.attractiveRate = 0;
+		this.productivity = 0;
 		this.dailyResourcesNeeded = ["nourishment"];
 
 		this.getStarterPack();
+	}
+
+	itsANewDay() {
+		this.gainProfitForTheDay();
+		this.payCostForTheDay();
+		this.cityGrowth();
+		if (this.structures.some((x) => x.name === "Inn")) this.newDailyQuest();
+		render.page(settings.actualPage);
 	}
 
 	initResources() {
@@ -52,6 +60,15 @@ export class City {
 		});
 	}
 
+	newDailyQuest() {
+		this.dailyQuest = [];
+		for (let i = 0; i < settings.nbDailyQuest; i++) {
+			let quest = new Quest();
+			// How to check until... (while do ?)
+			this.dailyQuest.push(quest);
+		}
+	}
+
 	addResource(array) {
 		array.forEach((e) => {
 			this.resources.find((m) => m.name === e.name).nb += e.nb;
@@ -71,20 +88,51 @@ export class City {
 		}
 	}
 
-	itsANewDay() {
-		this.gainProfitForTheDay();
-		this.payCostForTheDay();
+	deleteVillager(nb) {
+		for (let i = 0; i < nb; i++) {
+			villagers.leaveTown();
+		}
+	}
+
+	cityGrowth() {
+		this.calculateAttractiveRate();
+		if (this.attractiveRate >= 1) {
+			for (let i = 0; i < Math.floor(this.attractiveRate); i++) {
+				let rand = Math.floor(Math.random() * 100);
+				if (rand < settings.growLuck) this.addVillager();
+			}
+		} else if (
+			this.attractiveRate <= 1 &&
+			villagers.getAllVillagers().length + this.attractiveRate > 5
+		) {
+			this.deleteVillager(this.attractiveRate);
+		}
+	}
+
+	calculateAttractiveRate() {
+		let total =
+			(this.productivity - villagers.getAllVillagers().length) *
+			settings.globalRatio;
+		if (total > 0)
+			this.attractiveRate = settings.globalRatio * settings.growRate;
+		else this.attractiveRate = -(settings.globalRatio * settings.growRate);
 	}
 
 	gainProfitForTheDay() {
+		let productivity = 0;
 		this.structures.forEach((e) => {
 			if (!e.hasOwnProperty("resourceGain")) return;
 			e.resourceGain.forEach((r) => {
 				let amount =
 					e.prodPerPerson[e.level] * villagers.getAllVillagers(e.job).length;
-				this.addResource([{ name: r, nb: amount, raw: 1 }]);
+				this.addResource([{ name: r, nb: amount }]);
+				let dbRsc = allResources.find((x) => x.name === r);
+				if (dbRsc.hasOwnProperty("nutritValue")) {
+					productivity += amount * dbRsc.nutritValue;
+				}
 			});
 		});
+		this.productivity = productivity;
 	}
 
 	payCostForTheDay() {
@@ -132,8 +180,8 @@ export class City {
 		} else {
 			this.loseResource(this.calculatePrice(build));
 			build.level++;
-			gameManager.renderPage("buildings");
-			gameManager.renderRessources();
+			render.page("buildings");
+			render.resources();
 		}
 	}
 
@@ -150,8 +198,8 @@ export class City {
 				this.structures.splice([index], 1);
 			}
 		}
-		gameManager.renderPage("buildings");
-		gameManager.renderRessources();
+		render.page("buildings");
+		render.resources();
 	}
 
 	calculatePrice(building, factor = 1) {
@@ -214,8 +262,8 @@ export class City {
 			this.structures.push(build);
 			this.structures.find((x) => x.name === building).level = 1;
 			if (building.hasOwnProperty("resourceGain")) this.createResource(build);
-			gameManager.renderPage("buildings");
-			gameManager.renderRessources();
+			render.page("buildings");
+			render.resources();
 			return true;
 		} else {
 			return false;

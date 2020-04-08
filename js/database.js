@@ -29,7 +29,7 @@ export const allBuildings = [
         description: "Let your villagers hunt in the forest nearby to bring back <strong>raw meat</strong> and <strong>hide</strong> from the local wildlife.",
         maxVillagers: [0, 2, 4, 6, 8, 10, 13, 16, 19, 22, 25, 28, 31, 34,
             37, 40, 45, 50, 55, 60, 70, 80, 90, 100, 110, 150],
-        prodPerPerson: [0, 1, 2, 3, 4, 5, 7, 9, 11, 13, 15, 18, 21, 24,
+        prodPerPerson: [0, 2, 3, 4, 5, 6, 7, 9, 11, 13, 15, 18, 21, 24,
             27, 30, 34, 38, 42, 46, 50, 55, 60, 65, 70, 80],
         toShow: ["maxVillagers", "prodPerPerson"],
         resourceGain: ["meat", "hide"],
@@ -150,7 +150,59 @@ export const allResources = [
 
 export const allNarratives = [
 	{
-		title: "Titre",
-		description: "Blablabliblablu",
+		title: "The need for Apples", // Gathering apples
+		description:
+			"A local farmer needs you to bring her back some apples from a tree in a deep field. Beware, they tell it's guarded by the terrible rabbit of Caerbannog, or... maybe it's just regular rabbits.",
+		encounter: [],
+		factor: 1,
+	},
+	{
+		title: "The Chroma Conclave", // Chroma conclave in tal'dorei
+		description:
+			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
+		encounter: [],
+		factor: 3,
+	},
+	{
+		title: "Random Quest 3",
+		description:
+			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
+		encounter: [],
+		factor: 3,
+	},
+	{
+		title: "Random Quest 4",
+		description:
+			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
+		encounter: [],
+		factor: 3,
+	},
+	{
+		title: "Random Quest 5",
+		description:
+			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
+		encounter: [],
+		factor: 3,
+	},
+	{
+		title: "Random Quest 6",
+		description:
+			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
+		encounter: [],
+		factor: 3,
+	},
+	{
+		title: "Random Quest 7",
+		description:
+			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
+		encounter: [],
+		factor: 3,
+	},
+	{
+		title: "Random Quest 8",
+		description:
+			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
+		encounter: [],
+		factor: 3,
 	},
 ];

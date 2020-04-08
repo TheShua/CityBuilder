@@ -94,6 +94,21 @@ h2 {
 	text-align: right;
 }
 
+section h2 {
+	position: absolute;
+	top: -35px;
+	right: 70px;
+	text-align: center;
+	font-size: 2em;
+	color: #d1ca80;
+	background: #413325;
+	border: 3px solid #d1ca80;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+	padding: 0 50px;
+	line-height: 1.8em;
+}
+
 button {
 	padding: 10px;
 	color: #fff;
@@ -238,9 +253,10 @@ section {
 	border: 3px solid #d1ca80;
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-	padding: 20px 50px;
+	padding: 70px 50px;
 	margin: 50px;
 	display: none;
+	position: relative;
 }
 
 section:first-child {

@@ -1,7 +1,7 @@
 // Import other classes
 import { Helper } from "./helper.js";
 import { GameManager } from "./gameManager.js";
-import { Villager } from "./villager.js";
+import { GameRender } from "./gameRender.js";
 import { Villagers } from "./villagers.js";
 import { City } from "./city.js";
 
@@ -14,11 +14,17 @@ let debug = {
 // Variable assignation of global objects
 export const settings = {
 	ratioRefound: 0.7, // rate of selling for buildings
+	globalRatio: 1, // Global Ratio for... everything I don't want to specify particularly
+	growRate: 2,
+	growLuck: 15,
+	actualPage: "villagers",
+	nbDailyQuest: 3, // Number of daily quest available to show
 };
 export const helper = new Helper();
 export const villagers = new Villagers();
 export const city = new City();
-export const gameManager = new GameManager(debug.status, 500, city, villagers);
+export const render = new GameRender();
+export const gameManager = new GameManager(debug.status, 500);
 
 const pages = document.querySelectorAll("section");
 
@@ -30,7 +36,7 @@ window.onload = function () {
 	// 		city.setName(inputCityName.value);
 	// 		inputCityName.parentNode.parentNode.remove();
 	// 	});
-	gameManager.renderPage();
+	render.page();
 
 	document.querySelector(`#debug [data-action="pause"]`).onclick = (e) => {
 		e.target.textContent = gameManager.toggleGame();
@@ -38,7 +44,9 @@ window.onload = function () {
 
 	document.querySelectorAll(`[data-type="link"]`).forEach((e) => {
 		e.onclick = (l) => {
-			switchPage(l.target.getAttribute("data-page"));
+			let p = l.target.getAttribute("data-page");
+			switchPage(p);
+			settings.actualPage = p;
 		};
 	});
 };
@@ -50,9 +58,9 @@ export function switchPage(page) {
 		e.style.display = "none";
 	});
 
-	if (page === "villagers") gameManager.renderPage("villagers");
-	else if (page === "buildings") gameManager.renderPage("buildings");
-	else if (page === "inn") gameManager.renderPage("inn");
+	if (page === "villagers") render.page("villagers");
+	else if (page === "buildings") render.page("buildings");
+	else if (page === "inn") render.page("inn");
 	section.style.display = "block";
 }
 
