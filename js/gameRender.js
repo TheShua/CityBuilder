@@ -29,6 +29,7 @@ export class GameRender {
 		}</span>`;
 		list.appendChild(li);
 		city.structures.forEach((e) => {
+			if (e.type === "misc") return;
 			li = document.createElement("li");
 			li.setAttribute("data-resource", e.job);
 			li.innerHTML = `${e.job} <span>${
@@ -50,19 +51,20 @@ export class GameRender {
 					".number span.nb"
 				).innerHTML = villagers.getAllVillagers("unaffected").length;
 				city.structures.forEach((e) => {
+					if (e.type === "misc") return;
 					let div = helper.createRowVillager(
 						e.job,
 						villagers.getAllVillagers(e.job).length
 					);
 					div.querySelector(".plus").onclick = (event) => {
 						villagers.affectJob(e.job);
-						this.renderPage();
-						this.renderRessources();
+						this.page();
+						this.resources();
 					};
 					div.querySelector(".minus").onclick = (event) => {
 						villagers.unAffectJob(e.job);
-						this.renderPage();
-						this.renderRessources();
+						this.page();
+						this.resources();
 					};
 					list.appendChild(div);
 				});

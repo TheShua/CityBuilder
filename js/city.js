@@ -52,7 +52,6 @@ export class City {
 		this.addResource([
 			{ name: "wood", nb: 100 },
 			{ name: "meat", nb: 50 },
-			{ name: "food", nb: 3 },
 		]);
 		this.addVillager(5);
 		allBuildings.forEach((e) => {
@@ -262,6 +261,7 @@ export class City {
 			this.structures.push(build);
 			this.structures.find((x) => x.name === building).level = 1;
 			if (building.hasOwnProperty("resourceGain")) this.createResource(build);
+			if (build.name === "Inn") this.newDailyQuest();
 			render.page("buildings");
 			render.resources();
 			return true;

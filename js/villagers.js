@@ -1,10 +1,10 @@
+import { city } from "./main.js";
 import { Villager } from "./villager.js";
 import { allBuildings } from "./database.js";
 
 export class Villagers {
 	constructor() {
 		this.allVillagers = [];
-		this.city = null;
 	}
 
 	createVillager() {
@@ -36,7 +36,7 @@ export class Villagers {
 
 		if (!this.getAllVillagers("unaffected").length) return;
 
-		let actualBuild = this.city.structures.find((x) => x.job === job);
+		let actualBuild = city.structures.find((x) => x.job === job);
 		if (
 			this.getAllVillagers(job).length ===
 			actualBuild.maxVillagers[actualBuild.level]

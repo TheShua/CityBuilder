@@ -219,6 +219,7 @@ nav > ul ul {
 	font-weight: normal;
 	padding: 10px;
 	width: 250px;
+	z-index: 500;
 }
 
 nav > ul ul li {
@@ -398,4 +399,110 @@ section.listElems .flex > div.number span.desc {
 
 .blocks .content > button {
 	flex-basis: 100%;
+}
+
+.blocks.large .content {
+	flex-direction: column;
+}
+
+.blocks.large .content article {
+	width: 100%;
+	padding: 30px 10px;
+	padding-bottom: 20px;
+	margin-bottom: 40px;
+}
+
+.blocks.large .content article:last-child {
+	margin-bottom: 0;
+}
+
+.blocks.large h3,
+.blocks.large .info-bloc {
+	border-radius: 10px;
+	background: #d1ca80;
+	box-shadow: 2px 2px 0px #28221f;
+}
+
+.blocks.large h3 {
+	position: absolute;
+	top: -30px;
+	left: 0;
+	padding: 0 20px;
+	font-family: "Inknut Antiqua", serif;
+}
+
+.blocks.large .info-bloc {
+	position: absolute;
+	bottom: -30px;
+	right: 0;
+	padding: 10px 30px;
+	font-size: 0.8em;
+}
+
+/* ----------------------------------------------------------------------- */
+/* -------------------------- BATTLE MAP -------------------------------- */
+/* ----------------------------------------------------------------------- */
+
+.black-screen.map {
+	display: flex;
+	justify-content: center;
+}
+
+.arena {
+	position: absolute;
+	top: 0;
+	margin-left: -100px;
+}
+
+.arena .tile {
+	position: absolute;
+	display: inline-block;
+	height: 121px;
+	width: 135px;
+	z-index: -1;
+	vertical-align: middle;
+}
+
+.arena .tile.grass-1 {
+	background: url("./../assets/img/battles/greenGrass1-tiles.png") no-repeat;
+}
+
+.arena .tile.grass-2 {
+	background: url("./../assets/img/battles/greenGrass2-tiles.png") no-repeat;
+}
+
+.arena .tile.grass-3 {
+	background: url("./../assets/img/battles/greenGrass3-tiles.png") no-repeat;
+}
+
+.arena .tile.grass-4 {
+	background: url("./../assets/img/battles/greenGrass4-tiles.png") no-repeat;
+}
+
+.arena .tile.grass-5 {
+	background: url("./../assets/img/battles/greenGrass5-tiles.png") no-repeat;
+}
+
+.arena .tile.variant-1 {
+	background-position-x: 0;
+}
+
+.arena .tile.variant-2 {
+	background-position-x: -164px;
+}
+
+.arena .tile.variant-3 {
+	background-position-x: -329px;
+}
+
+.arena .tile.variant-4 {
+	background-position-x: -494px;
+}
+
+.arena .tile.variant-5 {
+	background-position-x: -660px;
+}
+
+.arena .tile.variant-6 {
+	background-position-x: -824px;
 }

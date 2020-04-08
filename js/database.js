@@ -110,7 +110,6 @@ export const allBuildings = [
         image: "",
         type: "misc",
         description: "",
-        // maxAdventurers: [0, ]
         toShow: [],
         price: [{ resource: "wood", base: 50, ratio: 1.3, fromLv: 0 },
         { resource: "stone", base: 20, ratio: 1.5, fromLv: 2 },]
@@ -133,13 +132,13 @@ export const allResources = [
 	{ name: "wool", nb: 0, categorie: "raw", type: [] },
 	{ name: "stone", nb: 0, categorie: "raw", type: [] },
 	{ name: "ore", nb: 0, categorie: "raw", type: [] },
-	{ name: "gold", nb: 0, categorie: "product", type: [] },
+	{ name: "gold", nb: 0, categorie: "product", type: ["base"] },
 	{ name: "plank", nb: 0, categorie: "product", type: [] },
 	{
 		name: "food",
 		nb: 0,
 		categorie: "product",
-		type: ["base", "nourishment"],
+		type: ["nourishment"],
 		nutritValue: 3,
 	},
 	{ name: "flour", nb: 0, categorie: "product", type: [] },
@@ -152,9 +151,10 @@ export const allNarratives = [
 	{
 		title: "The need for Apples", // Gathering apples
 		description:
-			"A local farmer needs you to bring her back some apples from a tree in a deep field. Beware, they tell it's guarded by the terrible rabbit of Caerbannog, or... maybe it's just regular rabbits.",
+			"A local farmer needs you to bring her back some apples from a tree in a deep field. Beware, they tell it's guarded by the terrible rabbit of Caerbannog, or... maybe it's just regular rabbits. Wait ! A chicken ?!",
 		encounter: [],
 		factor: 1,
+		maxAdventurers: 3,
 	},
 	{
 		title: "The Chroma Conclave", // Chroma conclave in tal'dorei
@@ -162,6 +162,7 @@ export const allNarratives = [
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
 		encounter: [],
 		factor: 3,
+		maxAdventurers: 4,
 	},
 	{
 		title: "Random Quest 3",
@@ -169,6 +170,7 @@ export const allNarratives = [
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
 		encounter: [],
 		factor: 3,
+		maxAdventurers: 4,
 	},
 	{
 		title: "Random Quest 4",
@@ -176,6 +178,7 @@ export const allNarratives = [
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
 		encounter: [],
 		factor: 3,
+		maxAdventurers: 4,
 	},
 	{
 		title: "Random Quest 5",
@@ -183,6 +186,7 @@ export const allNarratives = [
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
 		encounter: [],
 		factor: 3,
+		maxAdventurers: 4,
 	},
 	{
 		title: "Random Quest 6",
@@ -190,6 +194,7 @@ export const allNarratives = [
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
 		encounter: [],
 		factor: 3,
+		maxAdventurers: 4,
 	},
 	{
 		title: "Random Quest 7",
@@ -197,6 +202,7 @@ export const allNarratives = [
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
 		encounter: [],
 		factor: 3,
+		maxAdventurers: 4,
 	},
 	{
 		title: "Random Quest 8",
@@ -204,5 +210,22 @@ export const allNarratives = [
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
 		encounter: [],
 		factor: 3,
+		maxAdventurers: 4,
 	},
 ];
+
+// prettier-ignore
+export const battlemaps = {
+    base: {
+        pattern: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],]
+    }
+};

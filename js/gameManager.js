@@ -67,4 +67,12 @@ export class GameManager {
 		});
 		body.prepend(focus);
 	}
+
+	createFight(quest) {
+		let body = document.querySelector("body");
+		let focus = helper.focusFrame(false);
+		let editFocus = focus.querySelector(".content");
+		editFocus.appendChild(helper.createBattleMap());
+		body.prepend(focus);
+	}
 }
