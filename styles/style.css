@@ -450,7 +450,7 @@ section.listElems .flex > div.number span.desc {
 
 .arena {
 	position: absolute;
-	top: 0;
+	top: 100px;
 	margin-left: -100px;
 }
 
@@ -459,8 +459,9 @@ section.listElems .flex > div.number span.desc {
 	display: inline-block;
 	height: 121px;
 	width: 135px;
+	padding-left: 50px;
+	padding-top: -20px;
 	z-index: -1;
-	vertical-align: middle;
 }
 
 .arena .tile.grass-1 {
@@ -492,7 +493,7 @@ section.listElems .flex > div.number span.desc {
 }
 
 .arena .tile.variant-3 {
-	background-position-x: -329px;
+	background-position-x: -330px;
 }
 
 .arena .tile.variant-4 {
@@ -505,4 +506,204 @@ section.listElems .flex > div.number span.desc {
 
 .arena .tile.variant-6 {
 	background-position-x: -824px;
+}
+
+.arena .character {
+	display: inline-block;
+	position: relative;
+	z-index: 10000000;
+	background-position-x: -1px;
+	background-position-y: -1px;
+	background-repeat: no-repeat;
+	margin-top: -25px;
+}
+
+.arena .rei {
+	background-image: url("./../assets/img/character/rei.png");
+	width: 51px;
+	height: 62px;
+}
+
+.arena .ryu {
+	background-image: url("./../assets/img/character/ryu.png");
+	background-position-x: 0px;
+	background-position-y: 0px;
+	width: 27px;
+	height: 45px;
+}
+
+.arena .teepo {
+	background-image: url("./../assets/img/character/teepo.png");
+	width: 24px;
+	height: 32px;
+}
+
+.arena .momo {
+	background-image: url("./../assets/img/character/momo.png");
+	width: 37px;
+	height: 47px;
+}
+
+.arena .garr {
+	background-image: url("./../assets/img/character/garr.png");
+	width: 99px;
+	height: 114px;
+	margin-top: -70px;
+}
+
+.arena .thordak {
+	background-image: url("./../assets/img/enemies/dragonlord.png");
+	width: 233px;
+	height: 190px;
+	margin-left: -150px;
+	margin-top: -100px;
+}
+
+#characters {
+	display: flex;
+	position: absolute;
+	bottom: 50px;
+}
+
+#characters .bloc {
+	position: relative;
+	background: linear-gradient(#d1ca80, #a29d6b 70%);
+	width: 200px;
+	border-radius: 5px;
+	border: 2px solid #869598;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
+#characters .row-top {
+	position: absolute;
+	top: -27px;
+	color: #fff;
+	text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+		2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	font-weight: 700;
+	width: 100%;
+}
+#characters .row-top > div {
+	text-align: right;
+	font-size: 1.5em;
+}
+
+#characters .row-top > div > div:not(.lifeBarContainer) {
+	position: absolute;
+	top: -10px;
+	right: 5px;
+	text-align: right;
+}
+
+#characters .row-top strong {
+	color: #c96d45;
+	font-size: 1.3em;
+	display: inline-block;
+	position: relative;
+	/* top: 5px; */
+}
+
+#characters .row-top strong span {
+	position: relative;
+	top: -3px;
+	margin-right: -2px;
+}
+
+#characters .lifeBarContainer {
+	border: 1px solid #869598;
+	border-radius: 5px;
+	width: 160px;
+	height: 15px;
+}
+
+#characters .lifeBarContainer .life {
+	background: linear-gradient(#65845c, #3a5941);
+	height: 100%;
+}
+
+#characters .row-bot {
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	flex-direction: row-reverse;
+	bottom: -16px;
+	width: 100%;
+	text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+		2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+}
+
+#characters .apBarContainer {
+	border: 1px solid #869598;
+	border-radius: 5px;
+	width: 160px;
+	height: 15px;
+}
+
+#characters .apBarContainer .ap {
+	background: linear-gradient(#855b69, #503b68);
+	height: 100%;
+}
+
+#characters .row-bot strong {
+	color: #c96d45;
+	font-size: 1.3em;
+	display: inline-block;
+	position: relative;
+	right: 5px;
+	top: 5px;
+}
+
+#characters .row-bot strong span {
+	position: relative;
+	top: -3px;
+	margin-right: -2px;
+}
+
+#characters .portrait {
+	background-image: url("./../assets/img/character/portraits-x2.png");
+	background-repeat: no-repeat;
+	width: 80px;
+	height: 96px;
+	display: inline-block;
+	border-top-left-radius: 5px;
+	border-right: 1px solid #869598;
+	font-size: 0;
+}
+
+#characters .portrait.rei {
+	background-position-x: -186px;
+	background-position-y: -114px;
+}
+
+#characters .portrait.ryu {
+	background-position-x: -10px;
+	background-position-y: -114px;
+}
+
+#characters .portrait.teepo {
+	background-position-x: -274px;
+	background-position-y: -10px;
+}
+
+#characters .portrait.momo {
+	background-position-x: -362px;
+	background-position-y: -10px;
+}
+
+#characters .portrait.garr {
+	background-position-x: -362px;
+	background-position-y: -114px;
+}
+
+#characters .name {
+	margin-right: 10px;
+	font-weight: bold;
+	font-family: "Inknut Antiqua", serif;
 }

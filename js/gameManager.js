@@ -1,5 +1,6 @@
 import { helper, city, closeFocus, render } from "./main.js";
 import { allBuildings } from "./database.js";
+import { Battle } from "./battle.js";
 
 export class GameManager {
 	constructor(status = "play", dayDuration) {
@@ -68,11 +69,13 @@ export class GameManager {
 		body.prepend(focus);
 	}
 
-	createFight(quest) {
+	createFight(quest, chars, reward) {
 		let body = document.querySelector("body");
 		let focus = helper.focusFrame(false);
 		let editFocus = focus.querySelector(".content");
+
 		editFocus.appendChild(helper.createBattleMap());
 		body.prepend(focus);
+		this.fight = new Battle(quest.story.encounter, chars, reward);
 	}
 }

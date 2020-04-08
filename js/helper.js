@@ -201,7 +201,7 @@ export class Helper {
 				: villagers.getAllVillagers("unaffected").length;
 		let difficulty = quest.story.factor;
 		let btnPick = this.createButton("up", "Take the quest !", function () {
-			gameManager.createFight(quest);
+			gameManager.createFight(quest, nbVillagers, difficulty);
 		});
 		infoBloc.innerHTML = `${nbVillagers}/${quest.story.maxAdventurers} - 
         ${difficulty} - `;
@@ -214,23 +214,24 @@ export class Helper {
 		let arena = document.createElement("div");
 		arena.className = "arena";
 		let map = battlemaps.base;
+		let tileData = { width: 135, height: 121 };
 		let classTile = Math.floor(Math.random() * 5) + 1;
-		let tileData = { width: 50, height: 25 };
 		for (let row in map.pattern) {
 			for (let tile in map.pattern[row]) {
 				let cell = document.createElement("div");
 				cell.className = "tile";
 				cell.setAttribute("data-posx", row);
 				cell.setAttribute("data-posy", tile);
-				let x = tile * tileData.width;
-				let y = row * tileData.height;
+				cell.style.width = `${tileData.width}`;
+				cell.style.height = `${tileData.height}`;
+				let x = tile * 55;
+				let y = row * 29;
 				let mx = x / 2;
 				let my = y * 2;
 				cell.style.marginTop = `${mx}px`;
 				cell.style.marginLeft = `-${my}px`;
 				cell.style.top = `${y}px`;
 				cell.style.left = `${x}px`;
-				cell.style.zIndex = `1`;
 				cell.classList.add(`grass-${classTile}`);
 				let rand = Math.floor(Math.random() * 6);
 				cell.classList.add(`variant-${rand}`);
