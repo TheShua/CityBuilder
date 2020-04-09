@@ -7,7 +7,7 @@ export class Helper {
 		div.classList.add("element");
 		div.innerHTML = `<span class="title-job">${job}</span> 
             <strong>${number}</strong>
-            <img src="/assets/img/sections/arrowBrown_left.png" class="minus" alt="<"> <img src="/assets/img/sections/arrowBrown_right.png" class="plus" alt=">">`;
+            <img src="./assets/img/sections/arrowBrown_left.png" class="minus" alt="<"> <img src="./assets/img/sections/arrowBrown_right.png" class="plus" alt=">">`;
 		return div;
 	}
 
@@ -182,7 +182,7 @@ export class Helper {
 			let list = document.querySelector(selector);
 			let element = document.createElement("li");
 			element.setAttribute("data-resource", resource.name);
-			element.innerHTML = `<img src="./../assets/img/resources/${resource.name}.png"
+			element.innerHTML = `<img src="./assets/img/resources/${resource.name}.png"
             alt="${resource.name} Icon"> ${resource.name} : <span>${resource.nb}</span>`;
 			list.appendChild(element);
 		});
