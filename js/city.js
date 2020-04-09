@@ -61,6 +61,7 @@ export class City {
 
 	newDailyQuest() {
 		this.dailyQuest = [];
+		gameManager.dailyQuest = 0;
 		for (let i = 0; i < settings.nbDailyQuest; i++) {
 			let quest = new Quest();
 			// How to check until... (while do ?)
@@ -135,7 +136,7 @@ export class City {
 	}
 
 	payCostForTheDay() {
-		if (gameManager.currentDay === 1) return;
+		// if (gameManager.currentDay === 1) return;
 		let allVillagers = villagers.getAllVillagers().length;
 		let total = this.foodForTheDay();
 		let toSustain = allVillagers;

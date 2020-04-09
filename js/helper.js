@@ -210,6 +210,9 @@ export class Helper {
 		return article;
 	}
 
+	// setTile(x - mapSize / 2, y - mapSize / 2, mapData[y * mapSize + x] - 1);
+	// var mapSize = Math.floor(Math.sqrt(mapData.length));
+
 	createBattleMap() {
 		let arena = document.createElement("div");
 		arena.className = "arena";
@@ -239,5 +242,67 @@ export class Helper {
 			}
 		}
 		return arena;
+	}
+
+	createCharacterBattleBloc(char) {
+		let bloc = document.createElement("div");
+		bloc.className = `bloc ${char.name.toLowerCase()}`;
+		bloc.innerHTML = `<div class="row-top">
+				<strong><span>H</span>P.</strong>
+				<div>
+					<div class="nb-hp">${char.actualHp}</div>
+					<div class="lifeBarContainer">
+						<div class="life"></div>
+					</div>
+				</div>
+			</div>
+			<div class="portrait ${char.name.toLowerCase()}"></div>
+			<div class="name">${char.nameToShow}</div>
+			<div class="row-bot">
+				<strong><span>A</span>P.</strong>
+				<div class="apBarContainer">
+					<div class="ap"></div>
+				</div>
+			</div>`;
+		return bloc;
+	}
+
+	createCliquable(tag, className, text, onclick) {
+		let button = document.createElement(tag);
+		button.className = className;
+		button.textContent = text;
+		button.onclick = (e) => onclick();
+		return button;
+	}
+
+	showActionUI(char) {
+		let actionsUI = document.createElement("div");
+		actionsUI.setAttribute("id", "action-ui");
+		actionsUI.appendChild(
+			this.createCliquable("div", "act attack", "", () =>
+				gameManager.fight.characterDo(char, "attack")
+			)
+		);
+		actionsUI.appendChild(
+			this.createCliquable("div", "act defense", "", () =>
+				gameManager.fight.characterDo(char, "defend")
+			)
+		);
+		actionsUI.appendChild(
+			this.createCliquable("div", "act magick", "", () =>
+				gameManager.fight.characterDo(char, "magick")
+			)
+		);
+		actionsUI.appendChild(
+			this.createCliquable("div", "act item", "", () =>
+				gameManager.fight.characterDo(char, "items")
+			)
+		);
+		actionsUI.appendChild(
+			this.createCliquable("div", "act flee", "", () =>
+				gameManager.fight.characterDo(char, "flee")
+			)
+		);
+		return actionsUI;
 	}
 }

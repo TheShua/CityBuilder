@@ -89,9 +89,12 @@ export class GameRender {
 			case "inn":
 				content = document.querySelector("#page-inn .content");
 				content.innerHTML = "";
-				city.dailyQuest.forEach((q) => {
-					content.appendChild(helper.createQuestBoard(q));
-				});
+				if (gameManager.dailyQuest === 0) {
+					city.dailyQuest.forEach((q) => {
+						content.appendChild(helper.createQuestBoard(q));
+					});
+				} else {
+				}
 				break;
 		}
 	}

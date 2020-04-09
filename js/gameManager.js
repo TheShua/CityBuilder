@@ -9,13 +9,14 @@ export class GameManager {
 		this.currentDay = 0;
 		this.dayCountdown = 0;
 		this.status = status;
+		this.dailyQuest = 0;
 		render.resources();
 
 		if (status === "play") this.startGame(this.dayDuration);
+		this.dayCycle();
 	}
 
 	startGame() {
-		this.dayCycle();
 		this.intervalId = setInterval(() => this.checkForDayCycle(), 10);
 	}
 
@@ -76,6 +77,7 @@ export class GameManager {
 
 		editFocus.appendChild(helper.createBattleMap());
 		body.prepend(focus);
+		this.toggleGame();
 		this.fight = new Battle(quest.story.encounter, chars, reward);
 	}
 }

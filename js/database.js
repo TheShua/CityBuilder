@@ -152,7 +152,7 @@ export const allNarratives = [
 		title: "The need for Apples", // Gathering apples
 		description:
 			"A local farmer needs you to bring her back some apples from a tree in a deep field. Beware, they tell it's guarded by the terrible rabbit of Caerbannog, or... maybe it's just regular rabbits. Wait ! A chicken ?!",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 1,
 		maxAdventurers: 2,
 	},
@@ -160,7 +160,7 @@ export const allNarratives = [
 		title: "The Chroma Conclave", // Chroma conclave in tal'dorei
 		description:
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 3,
 		maxAdventurers: 3,
 	},
@@ -168,7 +168,7 @@ export const allNarratives = [
 		title: "Random Quest 3",
 		description:
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 3,
 		maxAdventurers: 3,
 	},
@@ -176,7 +176,7 @@ export const allNarratives = [
 		title: "Random Quest 4",
 		description:
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 3,
 		maxAdventurers: 3,
 	},
@@ -184,7 +184,7 @@ export const allNarratives = [
 		title: "Random Quest 5",
 		description:
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 3,
 		maxAdventurers: 3,
 	},
@@ -192,7 +192,7 @@ export const allNarratives = [
 		title: "Random Quest 6",
 		description:
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 3,
 		maxAdventurers: 3,
 	},
@@ -200,7 +200,7 @@ export const allNarratives = [
 		title: "Random Quest 7",
 		description:
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 3,
 		maxAdventurers: 3,
 	},
@@ -208,7 +208,7 @@ export const allNarratives = [
 		title: "Random Quest 8",
 		description:
 			"They told that dragons took over Tal'Dorei. You'll need to face Thordak, the mighty lord of the dragon who has gone crazy for power.",
-		encounter: ["thordak"],
+		encounter: ["chicken"],
 		factor: 3,
 		maxAdventurers: 3,
 	},
@@ -233,23 +233,59 @@ export const battlemaps = {
 export const allCharacters = [
 	{
 		name: "Rei",
+		nameToShow: "Rogue",
+		baseHp: 90,
+		actualHp: 100,
+		speed: 80.9,
+		actualAp: 0,
+		str: 6,
 	},
 	{
 		name: "Ryu",
+		nameToShow: "Warrior",
+		baseHp: 100,
+		actualHp: 100,
+		speed: 50.4,
+		actualAp: 0,
+		str: 7,
 	},
 	{
 		name: "Momo",
+		nameToShow: "Artificer",
+		baseHp: 120,
+		actualHp: 100,
+		speed: 35.3,
+		actualAp: 0,
+		str: 8,
 	},
 	{
 		name: "Teepo",
+		nameToShow: "Thief",
+		baseHp: 70,
+		actualHp: 100,
+		speed: 100.7,
+		actualAp: 0,
+		str: 6,
 	},
 	{
 		name: "Garr",
+		nameToShow: "Barbarian",
+		baseHp: 200,
+		actualHp: 100,
+		speed: 30.6,
+		actualAp: 0,
+		str: 12,
 	},
 ];
 
 export const allEnemies = [
 	{
-		name: "Thordak",
+		name: "Chicken",
+		nameShown: "Pollito",
+		baseHp: 100,
+		actualHp: 100,
+		actualAp: 0,
+		speed: 76,
+		str: 50,
 	},
 ];
