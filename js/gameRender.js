@@ -94,6 +94,10 @@ export class GameRender {
 						content.appendChild(helper.createQuestBoard(q));
 					});
 				} else {
+					let alerte = `<p>You already picked your quest for today. Now maybe it's the time to watch over your hamlet.</p>`;
+					content.appendChild(
+						helper.showMainMessage("No more for today !", alerte)
+					);
 				}
 				break;
 		}

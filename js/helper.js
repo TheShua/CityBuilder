@@ -210,9 +210,6 @@ export class Helper {
 		return article;
 	}
 
-	// setTile(x - mapSize / 2, y - mapSize / 2, mapData[y * mapSize + x] - 1);
-	// var mapSize = Math.floor(Math.sqrt(mapData.length));
-
 	createBattleMap() {
 		let arena = document.createElement("div");
 		arena.className = "arena";
@@ -304,5 +301,13 @@ export class Helper {
 			)
 		);
 		return actionsUI;
+	}
+
+	showMainMessage(title, htmlString, className = "") {
+		let article = document.createElement("article");
+		article.className = className;
+		article.innerHTML = `<h3>${title}</h3>
+		${htmlString}`;
+		return article;
 	}
 }
