@@ -49,7 +49,7 @@ export class GameManager {
 		this.currentDay++;
 		render.newDay(this.currentDay);
 		city.itsANewDay();
-		console.log("Nouveau jour ! Nous sommes le " + this.currentDay);
+		// console.log("Nouveau jour ! Nous sommes le " + this.currentDay);
 	}
 
 	showBuildingMenu() {

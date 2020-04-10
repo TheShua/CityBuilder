@@ -28,6 +28,33 @@ body {
 	padding: 15px;
 }
 
+.form.content {
+	display: flex;
+	flex-wrap: wrap;
+	width: 70%;
+}
+
+.form.content .testButton {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+
+.form.content .testButton ul {
+	margin-right: 20px;
+}
+
+.form.content article {
+	background: #d1ca80;
+	border-radius: 10px;
+	padding: 20px;
+	border: 4px solid #63492c;
+	box-shadow: inset 0 0 100px #63492c;
+	width: calc(50% - 20px);
+	margin: 10px;
+}
+
 #debug {
 	position: absolute;
 	right: 25px;
@@ -603,6 +630,58 @@ section.listElems .element {
 	background-image: url("./../assets/img/enemies/chicken.png");
 	width: 56px;
 	height: 59px;
+}
+
+.arena .orc {
+	background-image: url("./../assets/img/enemies/orc.png");
+	width: 79px;
+	height: 86px;
+	margin-left: -20px;
+	margin-top: -30px;
+}
+
+.arena .patrio {
+	background-image: url("./../assets/img/enemies/patrio.png");
+	width: 51px;
+	height: 77px;
+	margin-top: -25px;
+}
+
+.arena .ripper {
+	background-image: url("./../assets/img/enemies/ripper.png");
+	width: 68px;
+	height: 100px;
+	margin-top: -45px;
+}
+
+.arena .fullweed {
+	background-image: url("./../assets/img/enemies/fullweed.png");
+	width: 96px;
+	height: 69px;
+	margin-top: -20px;
+	margin-left: -40px;
+}
+
+.arena .guard {
+	background-image: url("./../assets/img/enemies/guard.png");
+	width: 39px;
+	height: 55px;
+}
+
+.arena .armor {
+	background-image: url("./../assets/img/enemies/armor.png");
+	width: 85px;
+	height: 97px;
+	margin-top: -35px;
+	margin-left: -20px;
+}
+
+.arena .elder {
+	background-image: url("./../assets/img/enemies/elder.png");
+	width: 199px;
+	height: 133px;
+	margin-top: -75px;
+	margin-left: -70px;
 }
 
 .show-damages {

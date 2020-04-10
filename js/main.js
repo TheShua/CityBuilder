@@ -4,11 +4,10 @@ import { GameManager } from "./gameManager.js";
 import { GameRender } from "./gameRender.js";
 import { Villagers } from "./villagers.js";
 import { City } from "./city.js";
-import { allBuildings } from "./database.js";
 
 // DEBUG VARIABLES
 let debug = {
-	debugging: true,
+	debugging: false,
 	status: "play", // Start the game in Pause mode "pause", "play"
 };
 // END DEBUG
@@ -32,7 +31,7 @@ export const gameManager = new GameManager(debug.status, 500);
 const pages = document.querySelectorAll("section");
 
 window.onload = function () {
-	if (!debug.debugging) render.chooseTitleVillage();
+	// if (!debug.debugging) render.chooseTitleVillage();
 	render.page();
 	if (debug.debugging) {
 		city.createBuilding("Inn");

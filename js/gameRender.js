@@ -19,6 +19,7 @@ export class GameRender {
 		content.appendChild(
 			helper.createCliquable("button", "up", "OK", () => {
 				render.enterVillageName();
+				gameManager.toggleGame();
 			})
 		);
 		document.querySelector("body").prepend(div);
