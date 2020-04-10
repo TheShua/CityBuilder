@@ -151,7 +151,7 @@ export class GameRender {
 				let amount =
 					e.prodPerPerson[e.level] * villagers.getAllVillagers(e.job).length;
 				let li = document.createElement("li");
-				li.innerHTML = `<img src="../assets/img/resources/${r}.png" alt="${r} icon"> ${r} : ${amount}`;
+				li.innerHTML = `<img src="./assets/img/resources/${r}.png" alt="${r} icon"> ${r} : ${amount}`;
 				ul.appendChild(li);
 			});
 		});

@@ -102,7 +102,7 @@ export class Helper {
 		}
 		stats.forEach((x) => {
 			let li = document.createElement("li");
-			li.innerHTML = `<span><img src="../assets/img/resources/${x.name}.png" alt="${x.name}" /></span><span>${x.nb}</span>`;
+			li.innerHTML = `<span><img src="./assets/img/resources/${x.name}.png" alt="${x.name}" /></span><span>${x.nb}</span>`;
 			list.appendChild(li);
 		});
 		return list;
@@ -213,8 +213,8 @@ export class Helper {
 		let btnPick = this.createButton("up", "Take the quest !", function () {
 			gameManager.createFight(quest, nbVillagers, difficulty);
 		});
-		infoBloc.innerHTML = `<img src="../assets/img/resources/villagers.png" alt="adventurers icon"> ${nbVillagers}/${quest.story.maxAdventurers} - 
-        ${difficulty} <img src="../assets/img/resources/gold.png" alt="gold icon"> - `;
+		infoBloc.innerHTML = `<img src="./assets/img/resources/villagers.png" alt="adventurers icon"> ${nbVillagers}/${quest.story.maxAdventurers} - 
+        ${difficulty} <img src="./assets/img/resources/gold.png" alt="gold icon"> - `;
 		infoBloc.appendChild(btnPick);
 		article.appendChild(infoBloc);
 		return article;
