@@ -54,6 +54,18 @@ export class GameRender {
 
 	resources() {
 		helper.showResourcesLists();
+		let liName = document.querySelector(`li[data-info="villagers"]`);
+		let totalUn = villagers.getAllVillagers("unaffected").length;
+		let total = villagers.getAllVillagers().length;
+		let prosperity = 0;
+		if (city.attractiveRate > 0) {
+			prosperity = `<span class="green">⬆</span>`;
+		} else if (city.attractiveRate < 0) {
+			prosperity = `<span class="red">⬇</span>`;
+		} else if (city.attractiveRate === 0) {
+			prosperity = `<span class="grey">-</span>`;
+		}
+		liName.innerHTML = `Villagers  (${totalUn}/${total}) ${prosperity}<ul></ul>`;
 		let list = document.querySelector(`li[data-info="villagers"] ul`);
 		list.innerHTML = "";
 		let li = document.createElement("li");

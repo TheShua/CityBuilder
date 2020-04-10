@@ -206,6 +206,9 @@ header {
 
 aside {
 	background: #28221f;
+	/* background: #413325; */
+	color: rgba(209, 202, 128, 0.2);
+	text-shadow: 0 0 15px #000;
 	border: 3px solid #d1ca80;
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), inset 0 0 200px rgba(0, 0, 0, 0.7);
@@ -259,6 +262,21 @@ nav > ul > li {
 	padding: 10px 20px;
 	position: relative;
 	font-weight: bold;
+}
+
+nav > ul .green {
+	color: #65845c;
+	font-weight: 700;
+}
+
+nav > ul .red {
+	color: #a52d27;
+	font-weight: 700;
+}
+
+nav > ul .grey {
+	color: #869598;
+	font-weight: 700;
 }
 
 nav li[data-type="link"]:last-child {
@@ -393,6 +411,13 @@ section.listElems .element {
 	padding: 10px 20px;
 	margin: 10px 0;
 	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.1s ease-in-out, background 0.2s ease-in-out;
+}
+
+section.listElems .element:hover {
+	background: #ece7b2;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
 /* ----------------------------------------------------------------------- */

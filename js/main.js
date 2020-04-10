@@ -1,3 +1,15 @@
+// Variable assignation of global objects
+export const settings = {
+	ratioRefound: 0.7, // rate of selling for buildings
+	globalRatio: 1, // Global Ratio for... everything I don't want to specify particularly
+	resourcesRate: 10,
+	growRate: 2,
+	growLuck: 25,
+	actualPage: "villagers",
+	nbDailyQuest: 3, // Number of daily quest available to show
+	titleSuffix: " :: School game project",
+};
+
 // Import other classes
 import { Helper } from "./helper.js";
 import { GameManager } from "./gameManager.js";
@@ -11,23 +23,11 @@ let debug = {
 	status: "play", // Start the game in Pause mode "pause", "play"
 };
 // END DEBUG
-
-// Variable assignation of global objects
-export const settings = {
-	ratioRefound: 0.7, // rate of selling for buildings
-	globalRatio: 1, // Global Ratio for... everything I don't want to specify particularly
-	resourcesRate: 3,
-	growRate: 2,
-	growLuck: 25,
-	actualPage: "villagers",
-	nbDailyQuest: 3, // Number of daily quest available to show
-	titleSuffix: " :: School game project",
-};
 export const helper = new Helper();
 export const villagers = new Villagers();
 export const city = new City();
 export const render = new GameRender();
-export const gameManager = new GameManager(debug.status, 500);
+export const gameManager = new GameManager(debug.status, 1500);
 
 const pages = document.querySelectorAll("section");
 
@@ -39,9 +39,9 @@ window.onload = function () {
 		render.page("inn");
 	}
 
-	document.querySelector(`#debug [data-action="pause"]`).onclick = (e) => {
-		e.target.textContent = gameManager.toggleGame();
-	};
+	// document.querySelector(`#debug [data-action="pause"]`).onclick = (e) => {
+	// 	e.target.textContent = gameManager.toggleGame();
+	// };
 	render.addMainMenuLink("Villagers", "villagers");
 	render.addMainMenuLink("Constructions", "buildings");
 };

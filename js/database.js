@@ -1,3 +1,5 @@
+import { settings } from "./main.js";
+
 // prettier-ignore
 export const allBuildings = [
 	{

@@ -56,7 +56,9 @@ export class City {
 		this.addVillager(5);
 		allBuildings.forEach((e) => {
 			if (e.level > 0) {
-				e.prodPerPerson.map((x) => x * settings.resourcesRate);
+				e.prodPerPerson = e.prodPerPerson.map(
+					(x) => x * settings.resourcesRate
+				);
 				this.structures.push(e);
 			}
 		});
@@ -263,11 +265,12 @@ export class City {
 		if (this.structures.includes(build)) return;
 		if (this.canBuy(build, true)) {
 			this.loseResource(this.calculatePrice(build));
-			if (build.hasOwnProperty("prodPerPerson"))
+			if (build.hasOwnProperty("prodPerPerson")) {
 				build.prodPerPerson.map((x) => x * settings.resourcesRate);
+			}
 			this.structures.push(build);
 			this.structures.find((x) => x.name === building).level = 1;
-			if (build.hasOwnProperty("resourceGain")) this.createResource(build);
+			if (building.hasOwnProperty("resourceGain")) this.createResource(build);
 			if (build.name === "Inn") {
 				this.createTheInn();
 			}
