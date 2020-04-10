@@ -1,4 +1,11 @@
-import { settings, villagers, city, closeFocus, gameManager } from "./main.js";
+import {
+	settings,
+	villagers,
+	city,
+	closeFocus,
+	gameManager,
+	animateCSS,
+} from "./main.js";
 import { allBuildings, battlemaps } from "./database.js";
 
 export class Helper {
@@ -108,7 +115,7 @@ export class Helper {
 		return button;
 	}
 
-	focusFrame(bg = true) {
+	focusFrame(bg = true, opacity = 0) {
 		let black = document.createElement("div");
 		if (bg) {
 			black.className = "black-screen";
@@ -117,6 +124,7 @@ export class Helper {
 			black.className = "black-screen map";
 			black.innerHTML = `<div class="content"></div>`;
 		}
+		if (opacity != 0) black.style.background = `rgba(0,0,0,${opacity})`;
 		return black;
 	}
 
@@ -233,7 +241,14 @@ export class Helper {
 				cell.style.top = `${y}px`;
 				cell.style.left = `${x}px`;
 				cell.classList.add(`grass-${classTile}`);
-				let rand = Math.floor(Math.random() * 6);
+				let rand = Math.floor(Math.random() * 50) + 1;
+				if (rand <= 25) rand = 1;
+				else if (rand <= 30) rand = 2;
+				else if (rand <= 35) rand = 3;
+				else if (rand <= 40) rand = 4;
+				else if (rand <= 45) rand = 5;
+				else if (rand <= 50) rand = 6;
+				// let rand = Math.floor(Math.random() * 6);
 				cell.classList.add(`variant-${rand}`);
 				arena.append(cell);
 			}
@@ -275,6 +290,10 @@ export class Helper {
 	showActionUI(char) {
 		let actionsUI = document.createElement("div");
 		actionsUI.setAttribute("id", "action-ui");
+		let characterName = document.createElement("div");
+		characterName.className = "character-name";
+		characterName.textContent = char.nameToShow;
+		actionsUI.appendChild(characterName);
 		actionsUI.appendChild(
 			this.createCliquable("div", "act attack", "", () =>
 				gameManager.fight.characterDo(char, "attack")

@@ -253,7 +253,7 @@ section {
 	background: #413325;
 	border: 3px solid #d1ca80;
 	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.4);
 	padding: 70px 50px;
 	margin: 50px;
 	display: none;
@@ -553,16 +553,21 @@ section.listElems .flex > div.number span.desc {
 }
 
 .arena .chicken {
-	/* background-image: url("./../assets/img/enemies/dragonlord.png");
-	width: 233px;
-	height: 190px;
-	margin-left: -150px;
-	margin-top: -100px;
-	*/
 	background-image: url("./../assets/img/enemies/chicken.png");
 	width: 56px;
 	height: 59px;
 }
+
+.show-damages {
+	color: #fff;
+	font-weight: 700;
+	position: absolute;
+	top: -40px;
+	font-size: 1.5em;
+	text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+		2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+}
+
 #characters {
 	display: flex;
 	position: absolute;
@@ -790,4 +795,45 @@ section.listElems .flex > div.number span.desc {
 
 #action-ui .act.attack:hover {
 	transform: scale(1.5);
+}
+
+#action-ui .character-name {
+	padding: 10px;
+	background: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	top: -100px;
+	border-radius: 10px;
+	color: #869598;
+	text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+		2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+	z-index: 500;
+	width: 200px;
+	box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1),
+		0 0 5px rgba(0, 0, 0, 0.8);
+	font-size: 1.1em;
+	margin-left: -65px;
+	text-align: center;
+}
+
+.message-box {
+	position: absolute;
+	bottom: 80px;
+	/* background: linear-gradient(#836b3f, #28221f 50%); */
+	background: #413325;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: inset 0 0 50px #28221f;
+	border: 4px solid #a29d6b;
+	color: #a29d6b;
+	text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+	font-weight: 600;
+	font-size: 1.2em;
+	z-index: 500000;
+	overflow: none;
+	width: 70%;
+	left: 15%;
+}
+
+.message-box .blue {
+	color: #7ca8d5;
 }

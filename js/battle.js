@@ -1,5 +1,12 @@
 import { allCharacters, allEnemies } from "./database.js";
-import { helper, city, gameManager, closeFocus, render } from "./main.js";
+import {
+	helper,
+	city,
+	gameManager,
+	closeFocus,
+	render,
+	animateCSS,
+} from "./main.js";
 import { GameRender } from "./gameRender.js";
 
 export class Battle {
@@ -86,8 +93,12 @@ export class Battle {
 		let charDiv = document.createElement("div");
 
 		charDiv.classList.add("character");
-		charDiv.classList.add(char.name.toLocaleLowerCase());
+		charDiv.classList.add(char.className);
 		tile.appendChild(charDiv);
+
+		animateCSS(`.character.${char.className}`, "bounceInDown", () => {
+			charDiv.classList.remove("bounceInDown");
+		});
 	}
 
 	showUI() {
@@ -132,7 +143,12 @@ export class Battle {
 			let rand = Math.round(Math.random() * this.characters.length);
 			this.attackTarget(this.enemies, this.characters[rand]);
 			this.enemies.actualAp = 0;
-
+			let targetSelector = `.character.${this.enemies.className}`;
+			animateCSS(targetSelector, "rubberBand", function () {
+				animateCSS(targetSelector, "rubberBand", function () {
+					div.remove();
+				});
+			});
 			this.pauseRound();
 			setTimeout(() => {
 				this.startBattle();
@@ -152,6 +168,7 @@ export class Battle {
 	}
 
 	turnToPlay(character) {
+		character.defense = false;
 		let actionUI = document.createElement("div");
 		actionUI.setAttribute("id", "action-ui");
 		actionUI.appendChild(helper.showActionUI(character));
@@ -163,21 +180,68 @@ export class Battle {
 	}
 
 	characterDo(char, action) {
-		console.log(`${char.nameToShow} do ${action}`);
+		// console.log(`${char.nameToShow} do ${action}`);
 		switch (action) {
 			case "attack":
 				this.clearActionsUI();
-				this.attackTarget(char);
+				this.attackTarget(char, this.enemies, true);
+				animateCSS(`.character.${char.className}`, "rubberBand", () => {
+					document
+						.querySelector(`.character.${char.className}`)
+						.classList.remove("rubberBand");
+				});
+				break;
+
+			case "flee":
+				let rand = Math.ceil(Math.random() * 3);
+				if (rand === 1) {
+					this.endFight("flee");
+				} else {
+					render.messageBox(
+						`<p>You try to flee... <br>but the terrible ${this.enemies.nameShown} catch up with your squad !</p>`,
+						3500
+					);
+					char.actualAp = 0;
+					this.clearActionsUI();
+					this.startBattle();
+				}
+				break;
+
+			case "defend":
+				char.defense = true;
+				char.actualAp = 0;
+				this.clearActionsUI();
+				this.startBattle();
+				break;
+
+			case "magick":
+				render.messageBox(
+					`<p>Sorry, this isn't done yet ! We only had <span class="blue">1 week</span> you know ?!</p>`,
+					3500
+				);
+				break;
+
+			case "items":
+				render.messageBox(
+					`<p>Sorry, this isn't done yet ! We only had <span class="blue">1 week</span> you know ?!</p>`,
+					3500
+				);
 				break;
 		}
 	}
 
-	attackTarget(attacker, defender = "enemy") {
-		if (defender === "enemy") {
-			defender = this.enemies;
-			defender.actualHp -= attacker.str;
-			console.log(`${defender.nameShown} has ${defender.actualHp}hp left`);
-			// Effects of the attack !
+	attackTarget(attacker, defender, playerAction = false) {
+		let rand = Math.floor(Math.random() * 26);
+		rand *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+		let dmg = attacker.str + rand;
+		dmg = dmg < 0 ? 0 : dmg;
+		if (defender.hasOwnProperty("defense") && defender.defense)
+			dmg = Math.floor(dmg / 2);
+		defender.actualHp -= dmg;
+		render.showDamages(defender, dmg);
+
+		if (playerAction) {
+			// console.log(`${defender.nameShown} has ${defender.actualHp}hp left`);
 			attacker.actualAp = 0;
 			if (defender.actualHp <= 0) {
 				this.endFight(1);
@@ -186,8 +250,7 @@ export class Battle {
 				this.startBattle();
 			}
 		} else {
-			defender.actualHp -= attacker.str;
-			console.log(`${defender.nameToShow} has ${defender.actualHp}hp left`);
+			// console.log(`${defender.nameToShow} has ${defender.actualHp}hp left`);
 			if (defender.actualHp <= 0) {
 				defender.actualHp = 0;
 				defender.active = false;
@@ -203,19 +266,26 @@ export class Battle {
 	stopBattle() {
 		clearInterval(this.battleId);
 		this.battleId = 0;
+		gameManager.dailyQuest = 1;
+		render.page("inn");
+		animateCSS(".black-screen", "fadeOut", () => {
+			closeFocus();
+		});
+		gameManager.toggleGame();
 	}
 
 	endFight(result) {
 		if (result === 1) {
 			// VIC-TOUERE !
 			this.stopBattle();
-			gameManager.dailyQuest = 1;
-			render.page("inn");
-			setTimeout(() => {
-				closeFocus();
-			}, 500);
 			city.addResource([{ name: "gold", nb: this.reward * 10 }]);
-			gameManager.toggleGame();
+		} else if (result === "flee") {
+			render.messageBox(
+				`<p>You try to flee... <br>
+				with success ! Too bad for the gold but at least, you're safe !</p>`,
+				5000
+			);
+			this.stopBattle();
 		} else {
 			console.log("You loose...");
 		}

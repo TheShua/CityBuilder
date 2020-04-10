@@ -1,4 +1,4 @@
-import { helper, city, closeFocus, render } from "./main.js";
+import { helper, city, closeFocus, render, animateCSS } from "./main.js";
 import { allBuildings } from "./database.js";
 import { Battle } from "./battle.js";
 
@@ -71,12 +71,13 @@ export class GameManager {
 	}
 
 	createFight(quest, chars, reward) {
-		let body = document.querySelector("body");
-		let focus = helper.focusFrame(false);
+		let body = document.querySelector("#wrapper");
+		let focus = helper.focusFrame(false, 1);
 		let editFocus = focus.querySelector(".content");
 
 		editFocus.appendChild(helper.createBattleMap());
 		body.prepend(focus);
+		animateCSS(".black-screen", "fadeIn");
 		this.toggleGame();
 		this.fight = new Battle(quest.story.encounter, chars, reward);
 	}

@@ -234,6 +234,8 @@ export const allCharacters = [
 	{
 		name: "Rei",
 		nameToShow: "Rogue",
+		className: "rei",
+		defense: false,
 		baseHp: 90,
 		actualHp: 100,
 		speed: 80.9,
@@ -243,6 +245,8 @@ export const allCharacters = [
 	{
 		name: "Ryu",
 		nameToShow: "Warrior",
+		className: "ryu",
+		defense: false,
 		baseHp: 100,
 		actualHp: 100,
 		speed: 50.4,
@@ -252,6 +256,8 @@ export const allCharacters = [
 	{
 		name: "Momo",
 		nameToShow: "Artificer",
+		className: "momo",
+		defense: false,
 		baseHp: 120,
 		actualHp: 100,
 		speed: 35.3,
@@ -261,6 +267,8 @@ export const allCharacters = [
 	{
 		name: "Teepo",
 		nameToShow: "Thief",
+		className: "teepo",
+		defense: false,
 		baseHp: 70,
 		actualHp: 100,
 		speed: 100.7,
@@ -270,6 +278,8 @@ export const allCharacters = [
 	{
 		name: "Garr",
 		nameToShow: "Barbarian",
+		className: "garr",
+		defense: false,
 		baseHp: 200,
 		actualHp: 100,
 		speed: 30.6,
@@ -282,6 +292,7 @@ export const allEnemies = [
 	{
 		name: "Chicken",
 		nameShown: "Pollito",
+		className: "chicken",
 		baseHp: 100,
 		actualHp: 100,
 		actualAp: 0,

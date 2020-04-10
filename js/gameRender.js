@@ -1,6 +1,48 @@
-import { helper, city, villagers, gameManager, switchPage } from "./main.js";
+import {
+	settings,
+	helper,
+	city,
+	villagers,
+	gameManager,
+	switchPage,
+	render,
+	closeFocus,
+	animateCSS,
+} from "./main.js";
 
 export class GameRender {
+	// < !-- < div class="black-screen" >
+	// <div class="form">
+	// 	<p>What is the name of your city ?</p>
+	// 	<input type="text" name="cityname" id="namingCity" />
+	// 	<button class="btn btn-submit">
+	// 		OK
+	// 			</button>
+	// </div>
+	// </div > -->
+
+	chooseTitleVillage() {
+		let div = helper.focusFrame();
+		let content = div.querySelector(".content");
+		content.innerHTML = `<p>What is the name of your city ?</p>
+		<input type="text" name="cityname" id="namingCity" />`;
+		content.appendChild(
+			helper.createCliquable("button", "up", "OK", () => {
+				render.enterVillageName();
+			})
+		);
+		document.querySelector("body").prepend(div);
+	}
+
+	enterVillageName() {
+		let inputCityName = document.getElementById("namingCity").value;
+		city.setName(inputCityName);
+		document.querySelector("h1").textContent = inputCityName;
+		document.querySelector("title").textContent =
+			inputCityName + settings.titleSuffix;
+		closeFocus();
+	}
+
 	dayTime() {
 		let bar = document.getElementById("progression-day");
 		let value = (gameManager.dayCountdown / gameManager.dayDuration) * 100;
@@ -116,5 +158,50 @@ export class GameRender {
 				})
 			);
 		}
+	}
+
+	addMainMenuLink(name, page) {
+		let list = document.querySelector("nav ul:nth-child(2)");
+		let li = document.createElement("li");
+		li.setAttribute("data-type", "link");
+		li.setAttribute("data-page", page);
+		li.textContent = name;
+		li.onclick = () => {
+			switchPage(page);
+			settings.actualPage = page;
+		};
+		list.appendChild(li);
+	}
+
+	showDamages(target, damages) {
+		let div = document.createElement("div");
+		div.className = "show-damages";
+		div.textContent = damages;
+		let targetDiv = document.querySelector(`.${target.className}`);
+		animateCSS(`.${target.className}`, "shake", function () {
+			targetDiv.classList.remove("shake");
+		});
+		targetDiv.appendChild(div);
+		let targetSelector = `.${target.className} .show-damages`;
+		animateCSS(targetSelector, "jackInTheBox", function () {
+			animateCSS(targetSelector, "bounceOut", function () {
+				div.remove();
+			});
+		});
+	}
+
+	messageBox(message, timer) {
+		let div = document.createElement("div");
+		div.className = "message-box";
+		div.innerHTML = message;
+		document.querySelector("body").prepend(div);
+		animateCSS(".message-box", "zoomInDown", () => {
+			document.querySelector(".message-box").classList.remove("bounceInUp");
+		});
+		setTimeout(() => {
+			animateCSS(".message-box", "zoomOutUp", () => {
+				div.remove();
+			});
+		}, timer);
 	}
 }

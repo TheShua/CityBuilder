@@ -4,10 +4,12 @@ import { GameManager } from "./gameManager.js";
 import { GameRender } from "./gameRender.js";
 import { Villagers } from "./villagers.js";
 import { City } from "./city.js";
+import { allBuildings } from "./database.js";
 
 // DEBUG VARIABLES
 let debug = {
-	status: "pause", // Start the game in Pause mode "pause", "play"
+	debugging: true,
+	status: "play", // Start the game in Pause mode "pause", "play"
 };
 // END DEBUG
 
@@ -19,6 +21,7 @@ export const settings = {
 	growLuck: 15,
 	actualPage: "villagers",
 	nbDailyQuest: 3, // Number of daily quest available to show
+	titleSuffix: " :: School game project",
 };
 export const helper = new Helper();
 export const villagers = new Villagers();
@@ -29,26 +32,18 @@ export const gameManager = new GameManager(debug.status, 500);
 const pages = document.querySelectorAll("section");
 
 window.onload = function () {
-	// document
-	// 	.querySelector("#namingCity + button")
-	// 	.addEventListener("click", function() {
-	// 		let inputCityName = document.getElementById("namingCity");
-	// 		city.setName(inputCityName.value);
-	// 		inputCityName.parentNode.parentNode.remove();
-	// 	});
+	if (!debug.debugging) render.chooseTitleVillage();
 	render.page();
+	if (debug.debugging) {
+		city.createBuilding("Inn");
+		render.page("inn");
+	}
 
 	document.querySelector(`#debug [data-action="pause"]`).onclick = (e) => {
 		e.target.textContent = gameManager.toggleGame();
 	};
-
-	document.querySelectorAll(`[data-type="link"]`).forEach((e) => {
-		e.onclick = (l) => {
-			let p = l.target.getAttribute("data-page");
-			switchPage(p);
-			settings.actualPage = p;
-		};
-	});
+	render.addMainMenuLink("Villagers", "villagers");
+	render.addMainMenuLink("Constructions", "buildings");
 };
 
 export function switchPage(page) {
@@ -66,4 +61,18 @@ export function switchPage(page) {
 
 export function closeFocus() {
 	document.querySelector(".black-screen").remove();
+}
+
+export function animateCSS(element, animationName, callback) {
+	const node = document.querySelector(element);
+	node.classList.add("animated", animationName);
+
+	function handleAnimationEnd() {
+		node.classList.remove("animated", animationName);
+		node.removeEventListener("animationend", handleAnimationEnd);
+
+		if (typeof callback === "function") callback();
+	}
+
+	node.addEventListener("animationend", handleAnimationEnd);
 }

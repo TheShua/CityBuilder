@@ -262,12 +262,19 @@ export class City {
 			this.structures.push(build);
 			this.structures.find((x) => x.name === building).level = 1;
 			if (building.hasOwnProperty("resourceGain")) this.createResource(build);
-			if (build.name === "Inn") this.newDailyQuest();
+			if (build.name === "Inn") {
+				this.createTheInn();
+			}
 			render.page("buildings");
 			render.resources();
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	createTheInn() {
+		this.newDailyQuest();
+		render.addMainMenuLink("Inn", "inn");
 	}
 }
