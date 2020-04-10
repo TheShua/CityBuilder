@@ -266,11 +266,13 @@ export class City {
 		if (this.canBuy(build, true)) {
 			this.loseResource(this.calculatePrice(build));
 			if (build.hasOwnProperty("prodPerPerson")) {
-				build.prodPerPerson.map((x) => x * settings.resourcesRate);
+				build.prodPerPerson = build.prodPerPerson.map(
+					(x) => x * settings.resourcesRate
+				);
 			}
 			this.structures.push(build);
 			this.structures.find((x) => x.name === building).level = 1;
-			if (building.hasOwnProperty("resourceGain")) this.createResource(build);
+			if (build.hasOwnProperty("resourceGain")) this.createResource(build);
 			if (build.name === "Inn") {
 				this.createTheInn();
 			}
