@@ -3,8 +3,8 @@
 @import url("https://fonts.googleapis.com/css?family=Lora:400,400i,600,700&display=swap");
 
 body {
-	background: #28221f;
 	font-family: "Lora", serif;
+	background: #28221f;
 }
 
 .black-screen {
@@ -48,6 +48,7 @@ body {
 	grid-auto-rows: minmax(100px, auto);
 	grid-template-rows: repeat(1, 2fr 1fr 10fr 1fr);
 	height: 100vh;
+	box-shadow: inset 0 0 500px rgba(0, 0, 0, 0.8);
 }
 
 header {
@@ -148,7 +149,7 @@ button.down:hover {
 }
 
 /* ----------------------------------------------------------------------- */
-/* ---------------------------- HEADINGS --------------------------------- */
+/* ---------------------------- THINGS.. --------------------------------- */
 /* ----------------------------------------------------------------------- */
 
 header {
@@ -177,14 +178,48 @@ header {
 }
 
 aside {
-	background: #836b3f;
+	background: #28221f;
+	border: 3px solid #d1ca80;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), inset 0 0 200px rgba(0, 0, 0, 0.7);
+	padding: 20px 50px;
+	margin-top: 50px;
+	margin-left: 50px;
+}
+
+aside h2 {
+	font-size: 2em;
+	margin-right: 20px;
+}
+
+aside ul {
+	margin-left: 50px;
+	text-transform: capitalize;
+}
+aside ul li {
+	padding: 5px 0;
 }
 
 nav {
-	background: #836b3f;
+	background: #413325;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	border-top: 2px solid #a29d6b;
+	border-bottom: 4px solid #a29d6b;
+	color: #a29d6b;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+	text-shadow: 2px 2px 0 #28221f;
+}
+
+nav > div {
+	position: relative;
+	top: -40px;
+	padding: 10px 50px;
+	background: #413325;
+	border-radius: 10px;
+	border-top: 2px solid #a29d6b;
+	font-weight: 700;
 }
 
 nav > ul {
@@ -209,10 +244,12 @@ nav li[data-type="resources"]:first-child {
 
 nav > ul ul {
 	background: #836b3f;
+	background: #413325;
 	border-radius: 10px;
-	box-shadow: 0px 5px 5px #28221f;
+	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.8);
 	visibility: hidden;
 	cursor: default;
+	color: #000;
 	opacity: 0;
 	left: 0;
 	position: absolute;
@@ -220,6 +257,7 @@ nav > ul ul {
 	padding: 10px;
 	width: 250px;
 	z-index: 500;
+	text-shadow: none;
 }
 
 nav > ul ul li {
@@ -252,10 +290,11 @@ nav li[data-type="resources"]:hover > ul:empty {
 section {
 	background: #413325;
 	border: 3px solid #d1ca80;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.4);
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), inset 0 0 200px rgba(0, 0, 0, 0.7);
 	padding: 70px 50px;
 	margin: 50px;
+	margin-bottom: 0;
 	display: none;
 	position: relative;
 }
@@ -297,20 +336,36 @@ section.listElems .flex > * {
 
 /* section.listElems .flex > article.list {
 } */
-section.listElems .flex > div.number {
-	color: rgba(0, 0, 0, 0.1);
+section.listElems .flex div.number {
+	color: rgba(201, 109, 69, 0.2);
 	position: relative;
 	font-size: 10em;
 	text-align: center;
+	border: 5px solid #a29d6b;
+	background: #413325;
+	border-radius: 50%;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 100px rgba(0, 0, 0, 0.5);
+	width: 200px;
+	margin: 0 auto;
 }
-section.listElems .flex > div.number span.desc {
-	color: rgba(0, 0, 0, 1);
+section.listElems .flex div.number span.desc {
+	color: rgba(255, 255, 255, 0.5);
 	position: absolute;
 	top: 45%;
 	left: 0;
 	text-align: center;
+	font-weight: 700;
 	width: 100%;
 	font-size: 0.1em;
+	text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000,
+		2px 2px #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+}
+
+section.listElems .element {
+	background: #d1ca80;
+	padding: 10px 20px;
+	margin: 10px 0;
+	border-radius: 10px;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -358,14 +413,6 @@ section.listElems .flex > div.number span.desc {
 
 .blocks article h3 {
 	z-index: 10;
-}
-
-.blocks img {
-	float: left;
-	border: 1px solid;
-	width: 100px;
-	height: 100px;
-	margin: 0 10px;
 }
 
 .blocks article p {
@@ -818,7 +865,6 @@ section.listElems .flex > div.number span.desc {
 .message-box {
 	position: absolute;
 	bottom: 80px;
-	/* background: linear-gradient(#836b3f, #28221f 50%); */
 	background: #413325;
 	padding: 20px;
 	border-radius: 10px;
@@ -836,4 +882,18 @@ section.listElems .flex > div.number span.desc {
 
 .message-box .blue {
 	color: #7ca8d5;
+}
+
+.message-box .red {
+	color: #a52d27;
+	font-weight: 700;
+}
+
+.costList {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.costList img {
+	margin-right: 10px;
 }

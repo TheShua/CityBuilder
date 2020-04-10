@@ -62,10 +62,11 @@ export class City {
 	newDailyQuest() {
 		this.dailyQuest = [];
 		gameManager.dailyQuest = 0;
-		for (let i = 0; i < settings.nbDailyQuest; i++) {
+		while (this.dailyQuest.length < settings.nbDailyQuest) {
 			let quest = new Quest();
-			// How to check until... (while do ?)
-			this.dailyQuest.push(quest);
+			if (!this.dailyQuest.some((x) => x.story.title === quest.story.title)) {
+				this.dailyQuest.push({ ...quest });
+			}
 		}
 	}
 

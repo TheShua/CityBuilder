@@ -47,6 +47,7 @@ export class GameManager {
 
 	dayCycle() {
 		this.currentDay++;
+		render.newDay(this.currentDay);
 		city.itsANewDay();
 		console.log("Nouveau jour ! Nous sommes le " + this.currentDay);
 	}

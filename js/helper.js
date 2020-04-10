@@ -64,21 +64,21 @@ export class Helper {
 		} else {
 			let test1 = document.createElement("div");
 			test1.className = "testButton";
-			test1.appendChild(this.showPriceInBlock(building));
 			test1.appendChild(
 				this.createButton("up", "Upgrade", function () {
 					city.upgradeBuilding(building.name);
 				})
 			);
+			test1.appendChild(this.showPriceInBlock(building));
 			buttons.appendChild(test1);
 			test1 = document.createElement("div");
 			test1.className = "testButton";
-			test1.appendChild(this.showPriceInBlock(building, "down"));
 			test1.appendChild(
 				this.createButton("down", "Downgrade", function () {
 					city.downgradeBuilding(building.name);
 				})
 			);
+			test1.appendChild(this.showPriceInBlock(building, "down"));
 			buttons.appendChild(test1);
 		}
 		bloc.appendChild(buttons);
@@ -88,6 +88,7 @@ export class Helper {
 	showPriceInBlock(building, statFor) {
 		let stats = null;
 		let list = document.createElement("ul");
+		list.className = "costList";
 		if (building.level > 0) {
 			if (statFor === "down") {
 				stats = city.calculatePrice(building, settings.ratioRefound);
@@ -101,7 +102,7 @@ export class Helper {
 		}
 		stats.forEach((x) => {
 			let li = document.createElement("li");
-			li.innerHTML = `<span>${x.name}</span><span>${x.nb}</span>`;
+			li.innerHTML = `<span><img src="../assets/img/resources/${x.name}.png" alt="${x.name}" /></span><span>${x.nb}</span>`;
 			list.appendChild(li);
 		});
 		return list;
@@ -207,12 +208,13 @@ export class Helper {
 			quest.story.maxAdventurers
 				? quest.story.maxAdventurers
 				: villagers.getAllVillagers("unaffected").length;
-		let difficulty = quest.story.factor;
+		let rand = Math.ceil(Math.random() * 20);
+		let difficulty = quest.story.factor * 10 * rand;
 		let btnPick = this.createButton("up", "Take the quest !", function () {
 			gameManager.createFight(quest, nbVillagers, difficulty);
 		});
-		infoBloc.innerHTML = `${nbVillagers}/${quest.story.maxAdventurers} - 
-        ${difficulty} - `;
+		infoBloc.innerHTML = `<img src="../assets/img/resources/villagers.png" alt="adventurers icon"> ${nbVillagers}/${quest.story.maxAdventurers} - 
+        ${difficulty} <img src="../assets/img/resources/gold.png" alt="gold icon"> - `;
 		infoBloc.appendChild(btnPick);
 		article.appendChild(infoBloc);
 		return article;

@@ -11,16 +11,6 @@ import {
 } from "./main.js";
 
 export class GameRender {
-	// < !-- < div class="black-screen" >
-	// <div class="form">
-	// 	<p>What is the name of your city ?</p>
-	// 	<input type="text" name="cityname" id="namingCity" />
-	// 	<button class="btn btn-submit">
-	// 		OK
-	// 			</button>
-	// </div>
-	// </div > -->
-
 	chooseTitleVillage() {
 		let div = helper.focusFrame();
 		let content = div.querySelector(".content");
@@ -89,9 +79,10 @@ export class GameRender {
 				content = document.getElementById("page-villagers");
 				let list = content.querySelector(".list");
 				list.innerHTML = "";
-				content.querySelector(
-					".number span.nb"
-				).innerHTML = villagers.getAllVillagers("unaffected").length;
+				let nbUV = villagers.getAllVillagers("unaffected").length;
+				content.querySelector(".number span.nb").innerHTML = nbUV;
+				content.querySelector(".number .desc").innerHTML =
+					nbUV <= 1 ? "unaffected villager" : "unaffected villagers";
 				city.structures.forEach((e) => {
 					if (e.type === "misc") return;
 					let div = helper.createRowVillager(
@@ -150,18 +141,32 @@ export class GameRender {
 		aside.innerHTML = "";
 		let title = document.createElement("h2");
 		title.textContent = "Projection";
+		let ul = document.createElement("ul");
+
 		aside.appendChild(title);
-		if (city.structures.some((x) => x.name === "Inn")) {
-			aside.appendChild(
-				helper.createButton("up", "Open bar", function () {
-					switchPage("inn");
-				})
-			);
-		}
+		city.structures.forEach((e) => {
+			if (!e.hasOwnProperty("resourceGain")) return;
+			e.resourceGain.forEach((r) => {
+				let amount =
+					e.prodPerPerson[e.level] * villagers.getAllVillagers(e.job).length;
+				let li = document.createElement("li");
+				li.innerHTML = `<img src="../assets/img/resources/${r}.png" alt="${r} icon"> ${r} : ${amount}`;
+				ul.appendChild(li);
+			});
+		});
+		aside.appendChild(ul);
+	}
+
+	newDay(currentDay) {
+		let dayDiv = document.querySelector("nav > div");
+		dayDiv.textContent = `Day ${currentDay}`;
+		animateCSS("nav > div", "wobble", () => {
+			//
+		});
 	}
 
 	addMainMenuLink(name, page) {
-		let list = document.querySelector("nav ul:nth-child(2)");
+		let list = document.querySelector("nav ul:nth-child(3)");
 		let li = document.createElement("li");
 		li.setAttribute("data-type", "link");
 		li.setAttribute("data-page", page);

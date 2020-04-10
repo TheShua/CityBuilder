@@ -7,7 +7,6 @@ import {
 	render,
 	animateCSS,
 } from "./main.js";
-import { GameRender } from "./gameRender.js";
 
 export class Battle {
 	constructor(encounter, chars, reward) {
@@ -193,12 +192,12 @@ export class Battle {
 				break;
 
 			case "flee":
-				let rand = Math.ceil(Math.random() * 3);
+				let rand = Math.ceil(Math.random() * 5);
 				if (rand === 1) {
 					this.endFight("flee");
 				} else {
 					render.messageBox(
-						`<p>You try to flee... <br>but the terrible ${this.enemies.nameShown} catch up with your squad !</p>`,
+						`<p>You try to flee... <br>but the terrible <span class="red">${this.enemies.nameShown}</span> catch up with your squad !</p>`,
 						3500
 					);
 					char.actualAp = 0;
@@ -277,8 +276,13 @@ export class Battle {
 	endFight(result) {
 		if (result === 1) {
 			// VIC-TOUERE !
+			render.messageBox(
+				`<p>Congratulations ! <br>
+				You won ! As promised, you won those <span class="red">${this.reward} gold pieces</span>. Too bad they're useless don't you think ?</p>`,
+				5000
+			);
 			this.stopBattle();
-			city.addResource([{ name: "gold", nb: this.reward * 10 }]);
+			city.addResource([{ name: "gold", nb: this.reward }]);
 		} else if (result === "flee") {
 			render.messageBox(
 				`<p>You try to flee... <br>
@@ -287,7 +291,12 @@ export class Battle {
 			);
 			this.stopBattle();
 		} else {
-			console.log("You loose...");
+			render.messageBox(
+				`<p>You loose the fight... <br>
+				Your brave adventurers definitely were'nt brave enough !</p>`,
+				5000
+			);
+			this.stopBattle();
 		}
 	}
 }
