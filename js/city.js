@@ -55,7 +55,10 @@ export class City {
 		]);
 		this.addVillager(5);
 		allBuildings.forEach((e) => {
-			if (e.level > 0) this.structures.push(e);
+			if (e.level > 0) {
+				e.prodPerPerson.map((x) => x * settings.resourcesRate);
+				this.structures.push(e);
+			}
 		});
 	}
 
@@ -83,7 +86,7 @@ export class City {
 		});
 	}
 
-	addVillager(nb) {
+	addVillager(nb = 1) {
 		for (let i = 0; i < nb; i++) {
 			villagers.createVillager();
 		}
@@ -98,9 +101,9 @@ export class City {
 	cityGrowth() {
 		this.calculateAttractiveRate();
 		if (this.attractiveRate >= 1) {
-			for (let i = 0; i < Math.floor(this.attractiveRate); i++) {
-				let rand = Math.floor(Math.random() * 100);
-				if (rand < settings.growLuck) this.addVillager();
+			for (let i = 0; i < Math.ceil(this.attractiveRate); i++) {
+				let rand = Math.ceil(Math.random() * 100);
+				if (rand <= settings.growLuck) this.addVillager();
 			}
 		} else if (
 			this.attractiveRate <= 1 &&
@@ -260,9 +263,11 @@ export class City {
 		if (this.structures.includes(build)) return;
 		if (this.canBuy(build, true)) {
 			this.loseResource(this.calculatePrice(build));
+			if (build.hasOwnProperty("prodPerPerson"))
+				build.prodPerPerson.map((x) => x * settings.resourcesRate);
 			this.structures.push(build);
 			this.structures.find((x) => x.name === building).level = 1;
-			if (building.hasOwnProperty("resourceGain")) this.createResource(build);
+			if (build.hasOwnProperty("resourceGain")) this.createResource(build);
 			if (build.name === "Inn") {
 				this.createTheInn();
 			}

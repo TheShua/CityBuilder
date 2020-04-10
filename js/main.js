@@ -16,8 +16,9 @@ let debug = {
 export const settings = {
 	ratioRefound: 0.7, // rate of selling for buildings
 	globalRatio: 1, // Global Ratio for... everything I don't want to specify particularly
+	resourcesRate: 3,
 	growRate: 2,
-	growLuck: 15,
+	growLuck: 25,
 	actualPage: "villagers",
 	nbDailyQuest: 3, // Number of daily quest available to show
 	titleSuffix: " :: School game project",
